@@ -1,0 +1,14 @@
+<img class="bg-img" [src]="bgUrl">
+<img class="header-img" [src]="headerUrl">
+<img class="chara-img" [src]="portraitUrl">
+<img class="glow-img" [src]="glowUrl">
+<div class="card-footer"></div>
+<img class="banner-img" [src]="bannerUrl">
+
+<img class="class-img" [src]="classUrl">
+<img class="rarity-img" [src]="starUrl">
+<img class="phase-img" [src]="phaseUrl" *ngIf="chara && chara.phaseIdx > 0">
+<img class="level-bg" [src]="levelBgUrl">
+<p class="level-header">LV</p>
+<p class="level-value">{{chara.level}}</p>
+<p class="chara-name">{{chara.data.name}}</p>

@@ -1,0 +1,137 @@
+<div *ngIf="char$ | async as c">
+
+  <h1 class="page-title">{{c.data.name}}</h1>
+
+  <div class="data-container">
+
+    <div class="card">
+      <ak-character-card [chara]="c"></ak-character-card>
+    </div>
+    <div class="info">
+      <div class="data-form">
+
+        <div class="form-row">
+          <div class="form-label">Elite</div>
+          <div class="form-control">
+            <nz-radio-group class="img-radio-group"
+              [ngModel]="c.phaseIdx"
+              (ngModelChange)="setPhaseIdx(c, $event)"
+              [nzButtonStyle]="'solid'">
+              <label nz-radio-button [nzValue]="0" title="No Elite">
+                <img [src]="getPhaseUrl(0)" alt="No Elite">
+              </label>
+              <label nz-radio-button [nzValue]="1" *ngIf="c.data.phases.length > 1" title="Elite 1">
+                <img [src]="getPhaseUrl(1)" alt="Elite 1">
+              </label>
+              <label nz-radio-button [nzValue]="2" *ngIf="c.data.phases.length > 2" title="Elite 2">
+                <img [src]="getPhaseUrl(2)" alt="Elite 2">
+              </label>
+              <label nz-radio-button [nzValue]="3" *ngIf="c.data.phases.length > 3" title="Elite 3">
+                <img [src]="getPhaseUrl(3)" alt="Elite 3">
+              </label>
+            </nz-radio-group>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Level</div>
+          <div class="form-control">
+            <nz-input-number
+              style="width: 60px; display: inline-block;"
+              [nzMin]="1"
+              [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
+              [ngModel]="c.level"
+              (ngModelChange)="c.setLevel($event)"></nz-input-number>
+            <nz-slider
+              style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
+              [nzMin]="1"
+              [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
+              [ngModel]="c.level"
+              (ngModelChange)="c.setLevel($event)"></nz-slider>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Trust</div>
+          <div class="form-control">
+            <nz-input-number
+              style="width: 60px; display: inline-block;"
+              [nzMin]="0"
+              [nzMax]="200"
+              [ngModel]="c.trust"
+              (ngModelChange)="c.setTrust($event)"></nz-input-number>
+            <nz-slider
+              style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
+              [nzMin]="0"
+              [nzMax]="200"
+              [ngModel]="c.trust"
+              (ngModelChange)="c.setTrust($event)"></nz-slider>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Potential</div>
+          <div class="form-control">
+            <nz-radio-group class="img-radio-group"
+              [ngModel]="c.potential"
+              (ngModelChange)="setPotential(c, $event)"
+              [nzButtonStyle]="'solid'">
+              <label nz-radio-button [nzValue]="0">
+                <img [src]="getPotentialUrl(0)">
+              </label>
+              <label nz-radio-button [nzValue]="1">
+                <img [src]="getPotentialUrl(1)">
+              </label>
+              <label nz-radio-button [nzValue]="2">
+                <img [src]="getPotentialUrl(2)">
+              </label>
+              <label nz-radio-button [nzValue]="3">
+                <img [src]="getPotentialUrl(3)">
+              </label>
+              <label nz-radio-button [nzValue]="4">
+                <img [src]="getPotentialUrl(4)">
+              </label>
+            </nz-radio-group>
+          </div>
+        </div>
+
+        <div class="attributes">
+          <nz-descriptions nzBordered nzSize="small">
+            <nz-descriptions-item nzTitle="Max HP">
+              {{c.stats.maxHp}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ATK">
+              {{c.stats.atk}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="DEF">
+              {{c.stats.def}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="RES">
+              {{c.stats.magicResistance}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Cost">
+              {{c.stats.cost}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Blocks">
+              {{c.stats.blockCnt}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ASPD">
+              {{c.stats.attackSpeed}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Redeploy">
+              {{c.stats.respawnTime}}
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+
+      </div>
+
+    </div>
+    <a class="illust" [ngStyle]="{'background-image': 'url('+getIllustUrl(c)+')'}" [href]="getIllustUrl(c)"
+      target="_blank">
+
+    </a>
+
+  </div>
+
+</div>

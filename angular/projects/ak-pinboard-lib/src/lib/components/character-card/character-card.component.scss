@@ -1,0 +1,171 @@
+$card-footer-color: #333333;
+$base-card-width: 140px;
+$base-card-height: 305px;
+
+:host {
+  position: relative;
+
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid black;
+  margin: 10px;
+
+  width: $base-card-width;
+  height: $base-card-height;
+  user-select: none;
+
+
+  filter: grayscale(100%);
+  .level-bg, .level-header, .level-value, .phase-img {
+    display: none;
+  }
+  .header-img, .bg-img {
+    opacity: 0.5;
+  }
+
+  &.hired {
+    filter: none;
+    .level-bg, .level-header, .level-value, .phase-img {
+      display: block;
+    }
+    .header-img, .bg-img {
+      opacity: 1.0;
+    }
+  }
+
+  // font-family: "Nuber Next Demi Bold Condensed";
+  // font-family: "Noto Sans Hans"; // (Yostar wwwww)
+
+}
+// bg < header < chara < glow < banner
+
+.bg-img, .header-img, .chara-img, .glow-img,
+.banner-img, .class-img, .rarity-img, .phase-img,
+.level-bg, .level-value, .level-header {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bg-img {
+  z-index: 10;
+  width: 100%;
+  height: auto;
+  bottom: 27px;
+}
+
+.header-img {
+  z-index: 20;
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0;
+}
+
+.chara-img {
+  z-index: 30;
+  width: 100%;
+  height: auto;
+  bottom: 27px;
+}
+
+.glow-img {
+  z-index: 40;
+  width: calc( 100% + 2px );
+  left: -1px;
+  height: auto;
+  bottom: 27px;
+}
+
+.card-footer {
+  z-index: 45;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35px;
+  background-color: $card-footer-color;
+}
+
+.banner-img {
+  z-index: 50;
+  width: calc( 100% + 15px );
+  height: auto;
+  left: -5px;
+  bottom: -7px;
+}
+
+
+.class-img {
+  z-index: 55;
+  width: 30px;
+  height: auto;
+  top: 3px;
+  left: 3px;
+  box-shadow: -6px 12px 18px 0px rgba(0, 0, 0, 0.55);
+}
+
+.rarity-img {
+  z-index: 60;
+  top: 3px;
+  left: 35px;
+  width: auto;
+  height: auto;
+}
+
+.phase-img {
+  z-index: 61;
+  left: 0;
+  bottom: 68px;
+  width: auto;
+  height: auto;
+}
+
+.level-bg {
+  z-index: 62;
+  left: -4px;
+  bottom: 8px;
+  width: auto;
+  height: auto;
+}
+
+.level-header {
+  z-index: 63;
+  margin: 0;
+  left: -4px;
+  bottom: 55px;
+  width: 76px;
+  height: auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 5pt;
+}
+
+.level-value {
+  z-index: 65;
+  margin: 0;
+  left: -4px;
+  bottom: 18px;
+  width: 76px;
+  height: auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: white;
+  font-size: 24pt;
+}
+
+.chara-name {
+  position: absolute;
+  z-index: 60;
+  margin: 0;
+  text-align: right;
+  bottom: 0;
+  right: 0;
+  font-size: 16pt;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+  color: white;
+}

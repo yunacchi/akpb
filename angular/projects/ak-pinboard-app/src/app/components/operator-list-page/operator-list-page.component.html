@@ -1,0 +1,13 @@
+<h1 class="page-title">My operators</h1>
+<div class="operator-list-container">
+  <a *ngFor="let c of myOperators" [routerLink]="'/operators/'+c.charId" routerLinkActive="active">
+    <ak-character-card [chara]="c" ></ak-character-card>
+  </a>
+
+</div>
+
+<h1 class="page-title">Remaining operators</h1>
+<div class="operator-list-container">
+  <ak-character-card *ngFor="let c of remainingOperators" [chara]="c" (click)="onCharaClick(c)"></ak-character-card>
+</div>
+

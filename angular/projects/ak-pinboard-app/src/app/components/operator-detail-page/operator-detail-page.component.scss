@@ -1,0 +1,43 @@
+.img-radio-group {
+  img {
+    object-fit: contain;
+    height: 100%;
+    margin-top: -6px;
+  }
+}
+
+.data-container {
+  display: flex;
+  flex-direction: row;
+
+  & > .illust {
+    display: block;
+    flex: 1 1 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    min-height: 512px;
+  }
+
+  .data-form {
+    margin-top: 10px;
+
+    .form-row {
+      white-space: nowrap;
+      margin: 5px 0;
+
+      .form-label {
+        display: inline-block;
+        text-align: right;
+        width: 75px;
+        padding-right: 5px;
+        font-weight: bold;
+      }
+      .form-control {
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
+
+}

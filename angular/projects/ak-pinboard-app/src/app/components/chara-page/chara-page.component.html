@@ -1,0 +1,41 @@
+
+
+<!-- <div class="chara-table">
+  <ak-character-card *ngFor="let c of charas" [chara]="c" (click)="selectChara(c)"></ak-character-card>
+</div>
+<div class="chara-info" *ngIf="selectedChara">
+  <h2>{{selectedChara.data.name}}</h2>
+
+  <h3>Elite</h3>
+  <ul class="phase-select">
+    <li>
+      <img [src]="getPhaseUrl(0)"
+      (click)="selectedChara.setPhaseIdx(0); updateCharaSkin()">
+    </li>
+
+    <li *ngIf="selectedChara.data.phases.length > 1">
+      <img [src]="getPhaseUrl(1)"
+      (click)="selectedChara.setPhaseIdx(1); updateCharaSkin()">
+    </li>
+
+    <li *ngIf="selectedChara.data.phases.length > 2">
+      <img [src]="getPhaseUrl(2)"
+      (click)="selectedChara.setPhaseIdx(2); updateCharaSkin()">
+    </li>
+
+    <li *ngIf="selectedChara.data.phases.length > 3">
+      <img [src]="getPhaseUrl(3)"
+      (click)="selectedChara.setPhaseIdx(3); updateCharaSkin()">
+    </li>
+  </ul>
+
+  <h3>Level</h3>
+  <nz-slider
+    [nzMin]="1"
+    [nzMax]="selectedChara.data.phases[selectedChara.phaseIdx].maxLevel"
+    (ngModelChange)="selectedChara.setLevel($event)"
+    [ngModel]="selectedChara.level"></nz-slider>
+
+  <h3 *ngIf="canRemoveChara">Remove from team</h3>
+  <button *ngIf="canRemoveChara" nz-button nzType="danger" (click)="fireSelectedChara()">You're <i>fired</i></button>
+</div> -->
