@@ -10,16 +10,33 @@
 <ng-container *ngIf="remainingOperators$ | async as remainingOperators">
   <h1 class="page-title">Available operators ({{remainingOperators.length}})</h1>
   <div class="operator-list-container">
-    <a *ngFor="let c of remainingOperators" [routerLink]="'/operators/'+c.charId" routerLinkActive="active">
+    <!--  -->
+    <div class="card-container" *ngFor="let c of remainingOperators"
+      (mouseenter) ="onCharaMouseEnter(c)"
+      (mouseleave) ="onCharaMouseLeave(c)">
       <ak-character-card [chara]="c"></ak-character-card>
-    </a>
+      <div class="card-overlay" [@cardOverlayShowHide]="hoverChara === c ? 'show' : 'hide'">
+
+        <div class="card-overlay-button" (click)="addChara(c)">
+          <i nz-icon nzType="plus" nzTheme="outline"></i>
+          Add to<br>
+          My operators
+        </div>
+
+        <a class="card-overlay-button" [routerLink]="'/operators/'+c.charId">
+          <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+          Details
+        </a>
+
+      </div>
+    </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="otherRegionOperators$ | async as otherRegionOperators">
   <h1 class="page-title">Future operators ({{otherRegionOperators.length}})</h1>
   <div class="operator-list-container">
-    <a *ngFor="let c of otherRegionOperators" [routerLink]="'/operators/'+c.charId" routerLinkActive="active">
+    <a *ngFor="let c of otherRegionOperators" [routerLink]="'/operators/'+c.charId">
       <ak-character-card [chara]="c"></ak-character-card>
     </a>
   </div>

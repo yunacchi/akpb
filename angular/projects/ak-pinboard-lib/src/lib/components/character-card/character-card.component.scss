@@ -1,6 +1,7 @@
 $card-footer-color: #333333;
 $base-card-width: 140px;
 $base-card-height: 305px;
+$base-card-margin: 10px;
 
 :host {
   position: relative;
@@ -13,7 +14,6 @@ $base-card-height: 305px;
   width: $base-card-width;
   height: $base-card-height;
   user-select: none;
-
 
   filter: none;
   .level-bg, .level-header, .level-value, .phase-img {

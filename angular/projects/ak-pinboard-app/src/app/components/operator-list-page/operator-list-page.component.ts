@@ -1,24 +1,49 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { AppTitleService } from '../../services/app-title.service';
-import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/services/chara-repository.service';
-import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
-import { orderBy } from 'lodash';
 import { Router } from '@angular/router';
+import { orderBy } from 'lodash';
+import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
+import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/services/chara-repository.service';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
-import { Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AppTitleService } from '../../services/app-title.service';
 
 @Component({
   selector: 'app-operator-list-page',
   templateUrl: './operator-list-page.component.html',
-  styleUrls: ['./operator-list-page.component.scss']
+  styleUrls: ['./operator-list-page.component.scss'],
+  animations: [
+    trigger('cardOverlayShowHide', [
+      state('show', style({
+        opacity: 1,
+        height: '*'
+      })),
+      state('hide', style({
+        opacity: 0,
+        height: 0
+      })),
+      transition('hide => show', [
+        style({ height: '*' }),
+        animate('140ms ease-in-out', style({
+          opacity: 1
+        }))
+      ]),
+      transition('show => hide', [
+        animate('140ms ease-in-out', style({
+          opacity: 0
+        }))
+      ]),
+    ]),
+  ],
 })
 export class OperatorListPageComponent implements OnInit {
 
   public readonly myOperators$: Observable<AkCharacter[]>;
   public readonly remainingOperators$: Observable<AkCharacter[]>;
   public readonly otherRegionOperators$: Observable<AkCharacter[]>;
-
+  public readonly reload$: BehaviorSubject<undefined>;
+  public hoverChara?: AkCharacter;
 
   constructor(
     private readonly title: AppTitleService,
@@ -26,9 +51,11 @@ export class OperatorListPageComponent implements OnInit {
     private readonly router: Router,
     private readonly regionService: GameRegionService
   ) {
+    this.reload$ = new BehaviorSubject<undefined>(undefined);
     const locale$ = combineLatest([
       this.regionService.region$,
-      this.regionService.language$
+      this.regionService.language$,
+      this.reload$
     ]);
 
     this.myOperators$ = locale$.pipe(map(([region, language]) => {
@@ -56,8 +83,17 @@ export class OperatorListPageComponent implements OnInit {
     this.title.setPageTitle('Operators');
   }
 
-  onCharaClick(c: AkCharacter) {
+  addChara(c: AkCharacter) {
     c.hire();
-    this.router.navigate(['operators', c.charId]);
+    this.reload$.next(undefined);
+  }
+
+  onCharaMouseEnter(c: AkCharacter) {
+    this.hoverChara = c;
+  }
+  onCharaMouseLeave(c: AkCharacter) {
+    if (this.hoverChara === c) {
+      this.hoverChara = undefined;
+    }
   }
 }
