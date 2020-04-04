@@ -8,6 +8,7 @@ import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/gam
 })
 export class AppComponent {
   public keepObjectOrder = (a, b) => a.key;
+
   constructor(
     public regionService: GameRegionService
   ) {

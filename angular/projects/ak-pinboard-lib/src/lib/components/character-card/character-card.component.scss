@@ -15,21 +15,24 @@ $base-card-height: 305px;
   user-select: none;
 
 
-  filter: grayscale(100%);
+  filter: none;
   .level-bg, .level-header, .level-value, .phase-img {
-    display: none;
+    display: block;
   }
   .header-img, .bg-img {
-    opacity: 0.5;
+    opacity: 1.0;
   }
 
-  &.hired {
-    filter: none;
-    .level-bg, .level-header, .level-value, .phase-img {
-      display: block;
+  &.missing {
+    .level-bg, .level-header, .level-value {
+      display: none;
     }
+  }
+
+  &.disabled {
+    filter: grayscale(100%);
     .header-img, .bg-img {
-      opacity: 1.0;
+      opacity: 0.5;
     }
   }
 

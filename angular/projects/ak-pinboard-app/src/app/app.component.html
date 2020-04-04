@@ -2,25 +2,29 @@
   <nz-header>
     <!-- <div class="logo"></div> -->
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item routerLink="/operators">
+      <li nz-menu-item routerLink="/operators" [nzMatchRouter]="true">
         My Operators
       </li>
-      <li nz-submenu [nzTitle]="'Region: '+regionService.regions[regionService.region]" nzIcon="global">
+      <li nz-submenu
+        *ngIf="regionService.region$ | async as region"
+        [nzTitle]="'Region: '+regionService.regions[region]" nzIcon="global">
         <ul>
           <li nz-menu-item
             *ngFor="let x of regionService.regions | keyvalue:keepObjectOrder"
             (click)="regionService.setRegion(x.key)"
-            [nzSelected]="regionService.region === x.key">
+            [nzSelected]="region === x.key">
             {{x.value}}
           </li>
         </ul>
       </li>
-      <li nz-submenu [nzTitle]="'Language: '+regionService.languages[regionService.language]" nzIcon="flag">
+      <li nz-submenu
+        *ngIf="regionService.language$ | async as language"
+        [nzTitle]="'Language: '+regionService.languages[language]" nzIcon="flag">
         <ul>
           <li nz-menu-item
             *ngFor="let x of regionService.languages | keyvalue:keepObjectOrder"
             (click)="regionService.setLanguage(x.key)"
-            [nzSelected]="regionService.language === x.key">
+            [nzSelected]="language === x.key">
             {{x.value}}
           </li>
         </ul>

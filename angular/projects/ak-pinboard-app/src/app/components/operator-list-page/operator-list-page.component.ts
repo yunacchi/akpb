@@ -4,6 +4,9 @@ import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/service
 import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
 import { orderBy } from 'lodash';
 import { Router } from '@angular/router';
+import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-operator-list-page',
@@ -12,37 +15,45 @@ import { Router } from '@angular/router';
 })
 export class OperatorListPageComponent implements OnInit {
 
-  public myOperators: AkCharacter[] = [];
-  public remainingOperators: AkCharacter[] = [];
+  public readonly myOperators$: Observable<AkCharacter[]>;
+  public readonly remainingOperators$: Observable<AkCharacter[]>;
+  public readonly otherRegionOperators$: Observable<AkCharacter[]>;
+
 
   constructor(
     private readonly title: AppTitleService,
     private readonly charaService: CharaRepositoryService,
-    private readonly router: Router
-  ) { }
+    private readonly router: Router,
+    private readonly regionService: GameRegionService
+  ) {
+    const locale$ = combineLatest([
+      this.regionService.region$,
+      this.regionService.language$
+    ]);
+
+    this.myOperators$ = locale$.pipe(map(([region, language]) => {
+      return this.buildOperatorArray(c => c.hired && c.regions.includes(region));
+    }));
+
+    this.remainingOperators$ = locale$.pipe(map(([region, language]) => {
+      return this.buildOperatorArray(c => !c.hired && c.regions.includes(region));
+    }));
+
+    this.otherRegionOperators$ = locale$.pipe(map(([region, language]) => {
+      return this.buildOperatorArray(c => !c.regions.includes(region));
+    }));
+  }
+
+  buildOperatorArray(filter: (c: AkCharacter) => boolean) {
+    return orderBy(
+      this.charaService.charas.filter(filter),
+      ['data.rarity', 'level', 'phaseIdx', 'tl.name'],
+      ['desc', 'desc', 'desc', 'asc']
+    );
+  }
 
   ngOnInit(): void {
     this.title.setPageTitle('Operators');
-    this.reloadCharas();
-  }
-
-  reloadCharas() {
-    this.myOperators = this.charaService.charas.filter(c => c.hired);
-    this.remainingOperators = this.charaService.charas.filter(c => !c.hired);
-    this.sortCharas();
-  }
-
-  sortCharas() {
-    this.myOperators = orderBy(
-      this.myOperators,
-      ['data.rarity', 'level', 'phaseIdx', 'data.name'],
-      ['desc', 'desc', 'desc', 'asc']
-    );
-    this.remainingOperators = orderBy(
-      this.remainingOperators,
-      ['data.rarity', 'level', 'phaseIdx', 'data.name'],
-      ['desc', 'desc', 'desc', 'asc']
-    );
   }
 
   onCharaClick(c: AkCharacter) {

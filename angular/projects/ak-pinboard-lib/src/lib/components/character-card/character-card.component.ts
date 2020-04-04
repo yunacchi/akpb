@@ -10,6 +10,7 @@ import { AkAssetsRootUrl, LocalAssetsRootUrl } from '../../abstractions/url';
 export class CharacterCardComponent implements OnInit {
 
   @Input() public chara: AkCharacter;
+  @HostBinding('class.disabled') @Input() public disabled: boolean;
 
   rarityRange: any[] = [];
 
@@ -17,6 +18,9 @@ export class CharacterCardComponent implements OnInit {
 
   @HostBinding('class.hired') public get isHired() {
     return this.chara && this.chara.hired;
+  }
+  @HostBinding('class.missing') public get isMissing() {
+    return this.chara && !this.chara.hired;
   }
 
   get portraitUrl() {

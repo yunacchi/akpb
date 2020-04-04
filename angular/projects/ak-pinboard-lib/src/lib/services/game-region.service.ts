@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameRegion } from '../abstractions/game-data/game-region';
 import { CharaRepositoryService } from './chara-repository.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,23 +22,25 @@ export class GameRegionService {
     ko_KR: '韓国語'
   };
 
-  public region: GameRegion;
-  public language: GameRegion;
+  public readonly region$: BehaviorSubject<GameRegion>;
+  public readonly language$: BehaviorSubject<GameRegion>;
 
   constructor(
     private readonly charaRepo: CharaRepositoryService
   ) {
-    this.region = 'en_US';
-    this.language = 'en_US';
+    this.region$ = new BehaviorSubject<GameRegion>('en_US');
+    this.language$ = new BehaviorSubject<GameRegion>('en_US');
   }
 
   setRegion(newRegion: GameRegion) {
-    this.region = newRegion;
+    console.log(`Setting region: ${newRegion}`);
     this.charaRepo.charas.forEach(c => c.setRegion(newRegion));
+    this.region$.next(newRegion);
   }
 
   setLanguage(newLanguage: GameRegion) {
-    this.language = newLanguage;
+    console.log(`Setting language: ${newLanguage}`);
     this.charaRepo.charas.forEach(c => c.setLanguage(newLanguage));
+    this.language$.next(newLanguage);
   }
 }
