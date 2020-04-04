@@ -41,13 +41,13 @@
               [nzMin]="1"
               [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
               [ngModel]="c.level"
-              (ngModelChange)="c.setLevel($event)"></nz-input-number>
+              (ngModelChange)="c.setLevel($event); saveChara(c);"></nz-input-number>
             <nz-slider
               style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
               [nzMin]="1"
               [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
               [ngModel]="c.level"
-              (ngModelChange)="c.setLevel($event)"></nz-slider>
+              (ngModelChange)="c.setLevel($event); saveChara(c);"></nz-slider>
           </div>
         </div>
 
@@ -59,13 +59,13 @@
               [nzMin]="0"
               [nzMax]="200"
               [ngModel]="c.trust"
-              (ngModelChange)="c.setTrust($event)"></nz-input-number>
+              (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-input-number>
             <nz-slider
               style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
               [nzMin]="0"
               [nzMax]="200"
               [ngModel]="c.trust"
-              (ngModelChange)="c.setTrust($event)"></nz-slider>
+              (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-slider>
           </div>
         </div>
 

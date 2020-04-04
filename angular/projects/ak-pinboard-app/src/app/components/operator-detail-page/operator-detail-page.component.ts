@@ -44,12 +44,18 @@ export class OperatorDetailPageComponent implements OnInit {
 
   setPhaseIdx(c: AkCharacter, idxStr: number) {
     c.setPhaseIdx(idxStr);
+    this.saveChara(c);
     this.charaService.updateCharaSkin(c);
   }
 
   setPotential(c: AkCharacter, x: number) {
     console.log(c);
     c.setPotential(x);
+    this.saveChara(c);
+  }
+
+  saveChara(c: AkCharacter) {
+    this.charaService.saveChara(c);
   }
 
 }

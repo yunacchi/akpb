@@ -9,6 +9,7 @@ import { GameRegion } from '../abstractions/game-data/game-region';
 import { CharaTranslation, CharaTranslations } from '../abstractions/tl-data';
 import { AkhrCharaData } from '../abstractions/game-data/tl-akhr';
 import { of } from 'rxjs';
+import { UserDataService, applyUserData, createUserData } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,9 @@ export class CharaRepositoryService {
   buildinEvolveMap: { [charId: string]: { [phaseId: string]: string; }; }; /* char => phaseId => skinId */
   tlMap: Map<string, CharaTranslations>;
 
-  constructor() {
+  constructor(
+    private readonly userDataService: UserDataService
+  ) {
     this.charaMap = new Map<string, AkCharacter>();
     this.skinMap = new Map<string, SkinInfo>();
     this.charas = [];
@@ -69,6 +72,9 @@ export class CharaRepositoryService {
         // Create AkCharacter
         const c: AkCharacter = new AkCharacter(charId, regionData, charaTranslations, 'zh_CN', 'en_US');
 
+        // Load userData
+        applyUserData(c, this.userDataService.loadChara('000', charId));
+
         // These operators are always added
         if (db.dataconst.initCharIdList.indexOf(charId) >= 0) {
           c.hire();
@@ -82,6 +88,10 @@ export class CharaRepositoryService {
         this.charaMap.set(charId, c);
       }
     }
+  }
+
+  public saveChara(c: AkCharacter) {
+    this.userDataService.saveChara('000', c.charId, createUserData(c));
   }
 
   public updateCharaSkin(c: AkCharacter) {

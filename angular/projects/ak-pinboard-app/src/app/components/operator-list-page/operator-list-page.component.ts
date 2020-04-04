@@ -85,6 +85,7 @@ export class OperatorListPageComponent implements OnInit {
 
   addChara(c: AkCharacter) {
     c.hire();
+    this.charaService.saveChara(c);
     this.reload$.next(undefined);
   }
 
