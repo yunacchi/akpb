@@ -1,5 +1,7 @@
-import { CharaData, CharaPhase, CharaAttributeKeyFrame, CharaAttributes, BaseCharaAttributes } from './character-table';
-import { SkinInfo } from './skin-table';
+import { CharaData, CharaPhase, CharaAttributeKeyFrame, CharaAttributes, BaseCharaAttributes } from './game-data/character-table';
+import { SkinInfo } from './game-data/skin-table';
+import { GameRegion } from './game-data/game-region';
+import { CharaTranslations, CharaTranslation } from './tl-data';
 
 export class AkCharacter {
 
@@ -14,14 +16,34 @@ export class AkCharacter {
   public phase: CharaPhase;
   public absoluteLevel: number;
   public stats: BaseCharaAttributes;
+  public data: CharaData;
+  public regions: GameRegion[];
+  public tl: CharaTranslation;
 
   constructor(
     public readonly charId: string,
-    public readonly data: CharaData
+    public readonly regionData: { [key in GameRegion]?: CharaData },
+    public readonly translations: CharaTranslations,
+    public region: GameRegion,
+    public language: GameRegion
   ) {
-    this.phase = data.phases[0];
+    this.regions = Object.keys(regionData) as GameRegion[];
     this.absoluteLevel = 1;
+
+    this.setLanguage(language);
+    this.setRegion(region);
     this.stats = createAttributes();
+  }
+
+  public setLanguage(newLanguage: GameRegion) {
+    this.language = newLanguage;
+    this.tl = this.translations[newLanguage];
+  }
+
+  public setRegion(newRegion: GameRegion) {
+    this.region = newRegion;
+    this.data = this.regionData[newRegion] || this.regionData.zh_CN;
+    this.phase = this.data.phases[this.phaseIdx];
   }
 
   public setSkin(skinInfo: SkinInfo) {

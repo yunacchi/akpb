@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,16 @@ import { CharaPageComponent } from './components/chara-page/chara-page.component
 import { OperatorListPageComponent } from './components/operator-list-page/operator-list-page.component';
 import { TestPageComponent } from './components/test-page/test-page.component';
 import { OperatorDetailPageComponent } from './components/operator-detail-page/operator-detail-page.component';
+import { GameDataService } from 'projects/ak-pinboard-lib/src/lib/services/game-data.service';
+
+export function initAppAsync(
+  gameData: GameDataService
+  ): () => Promise<any> {
+  // tslint:disable-next-line: only-arrow-functions
+  return function() {
+    return gameData.loadGameData$().toPromise();
+  };
+}
 
 registerLocaleData(en);
 
@@ -36,7 +46,12 @@ registerLocaleData(en);
     AppRoutingModule,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: en_US }
+    { provide: NZ_I18N, useValue: en_US },
+    {
+      provide: APP_INITIALIZER, multi: true,
+      useFactory: initAppAsync,
+      deps: [GameDataService]
+    },
   ],
   bootstrap: [
     AppComponent

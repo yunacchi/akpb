@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ak-pinboard-app';
+  public keepObjectOrder = (a, b) => a.key;
+  constructor(
+    public regionService: GameRegionService
+  ) {
+  }
 }

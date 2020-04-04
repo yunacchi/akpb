@@ -1,30 +1,24 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CharaRepositoryService } from './services/chara-repository.service';
 import { CharacterCardComponent } from './components/character-card/character-card.component';
-
-export function initModuleAsync(charaRepo: CharaRepositoryService): () => Promise<any> {
-  // tslint:disable-next-line: only-arrow-functions
-  return function() { return charaRepo.loadCharacterDataAsync(); };
-}
+import { GameDataService } from './services/game-data.service';
 
 @NgModule({
   declarations: [
-  CharacterCardComponent],
+    CharacterCardComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
   ],
   exports: [
-  CharacterCardComponent],
+    CharacterCardComponent
+  ],
   providers: [
     CharaRepositoryService,
-    {
-      provide: APP_INITIALIZER, multi: true,
-      useFactory: initModuleAsync,
-      deps: [CharaRepositoryService]
-    },
+    GameDataService
   ]
 })
 export class AkPinboardLibModule { }
