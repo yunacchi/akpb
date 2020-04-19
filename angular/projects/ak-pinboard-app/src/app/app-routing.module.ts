@@ -4,6 +4,7 @@ import { TestPageComponent } from './components/test-page/test-page.component';
 import { CharaPageComponent } from './components/chara-page/chara-page.component';
 import { OperatorListPageComponent } from './components/operator-list-page/operator-list-page.component';
 import { OperatorDetailPageComponent } from './components/operator-detail-page/operator-detail-page.component';
+import { OperatorPartyPageComponent } from './components/operator-party-page/operator-party-page.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,11 @@ const routes: Routes = [
   {
     path: 'operators/:charId',
     component: OperatorDetailPageComponent
-  }
+  },
+  {
+    path: 'party',
+    component: OperatorPartyPageComponent
+  },
 ];
 
 @NgModule({

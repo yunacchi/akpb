@@ -5,9 +5,44 @@ import { orderBy } from 'lodash';
 import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
 import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/services/chara-repository.service';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppTitleService } from '../../services/app-title.service';
+import { uniq } from 'lodash';
+
+interface SortMode {
+  asc: SortData;
+  desc: SortData;
+}
+interface SortData {
+  data: string[];
+  order: boolean[];
+}
+
+type SortModeKey = 'rarity'|'level';
+
+const sortModes: {[key in SortModeKey]: SortMode} = {
+  rarity: {
+    asc: {
+      data: ['data.rarity', 'phaseIdx', 'level', 'tl.name'],
+      order: [true, true, true, true] // = isAscending
+    },
+    desc: {
+      data: ['data.rarity', 'phaseIdx', 'level', 'tl.name'],
+      order: [false, false, false, true] // = isAscending
+    }
+  },
+  level: {
+    asc: {
+      data: ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+      order: [true, true, true, true] // = isAscending
+    },
+    desc: {
+      data: ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+      order: [false, false, false, true] // = isAscending
+    }
+  }
+};
 
 @Component({
   selector: 'app-operator-list-page',
@@ -42,8 +77,15 @@ export class OperatorListPageComponent implements OnInit {
   public readonly myOperators$: Observable<AkCharacter[]>;
   public readonly remainingOperators$: Observable<AkCharacter[]>;
   public readonly otherRegionOperators$: Observable<AkCharacter[]>;
-  public readonly reload$: BehaviorSubject<undefined>;
+  public readonly reload$: BehaviorSubject<void>;
   public hoverChara?: AkCharacter;
+  public nameFilter = '';
+  public myOperatorsActive = true;
+  public remainingOperatorsActive = true;
+  public otherRegionOperatorsActive = false;
+
+  public sortModeKey: SortModeKey = 'level';
+  public sortAscending = false;
 
   constructor(
     private readonly title: AppTitleService,
@@ -51,7 +93,7 @@ export class OperatorListPageComponent implements OnInit {
     private readonly router: Router,
     private readonly regionService: GameRegionService
   ) {
-    this.reload$ = new BehaviorSubject<undefined>(undefined);
+    this.reload$ = new BehaviorSubject<void>(undefined);
     const locale$ = combineLatest([
       this.regionService.region$,
       this.regionService.language$,
@@ -59,23 +101,29 @@ export class OperatorListPageComponent implements OnInit {
     ]);
 
     this.myOperators$ = locale$.pipe(map(([region, language]) => {
-      return this.buildOperatorArray(c => c.hired && c.regions.includes(region));
+      return this.buildOperatorArray(c => filterName(c, this.nameFilter) && c.hired && c.regions.includes(region));
     }));
 
     this.remainingOperators$ = locale$.pipe(map(([region, language]) => {
-      return this.buildOperatorArray(c => !c.hired && c.regions.includes(region));
+      return this.buildOperatorArray(c => filterName(c, this.nameFilter) && !c.hired && c.regions.includes(region));
     }));
 
     this.otherRegionOperators$ = locale$.pipe(map(([region, language]) => {
-      return this.buildOperatorArray(c => !c.regions.includes(region));
+      return this.buildOperatorArray(c => filterName(c, this.nameFilter) && !c.regions.includes(region));
     }));
   }
 
   buildOperatorArray(filter: (c: AkCharacter) => boolean) {
+    const p = uniq(
+      this.charaService.charas.map(c => c.data.profession)
+    );
+    console.log( JSON.stringify(p));
+
+    const sortData = this.sortAscending ? sortModes[this.sortModeKey].asc : sortModes[this.sortModeKey].desc;
     return orderBy(
       this.charaService.charas.filter(filter),
-      ['data.rarity', 'level', 'phaseIdx', 'tl.name'],
-      ['desc', 'desc', 'desc', 'asc']
+      sortData.data,
+      sortData.order.map( (isAsc) => isAsc ? 'asc' : 'desc')
     );
   }
 
@@ -86,7 +134,11 @@ export class OperatorListPageComponent implements OnInit {
   addChara(c: AkCharacter) {
     c.hire();
     this.charaService.saveChara(c);
-    this.reload$.next(undefined);
+    this.reload();
+  }
+
+  reload() {
+    this.reload$.next();
   }
 
   onCharaMouseEnter(c: AkCharacter) {
@@ -97,4 +149,13 @@ export class OperatorListPageComponent implements OnInit {
       this.hoverChara = undefined;
     }
   }
+}
+
+function filterName(c: AkCharacter, nameFilter: string): boolean {
+  if (nameFilter !== '') {
+    const filter = nameFilter.trim().toLowerCase();
+    const name = c.tl.name.trim().toLowerCase();
+    return name.indexOf(filter) !== -1;
+  }
+  return true;
 }

@@ -10,17 +10,17 @@ import { UserDataService } from './user-data.service';
 export class GameRegionService {
 
   public readonly regions: { [key in GameRegion]: string } = {
-    zh_CN: '中文',
+    zh_CN: '中国',
     en_US: 'Global',
-    ja_JP: '日本語',
-    ko_KR: '韓国語'
+    ja_JP: '日本',
+    ko_KR: '한국'
   };
 
   public readonly languages: { [key in GameRegion]: string } = {
     zh_CN: '中文',
     en_US: 'English',
     ja_JP: '日本語',
-    ko_KR: '韓国語'
+    ko_KR: '한국어'
   };
 
   public readonly region$: BehaviorSubject<GameRegion>;

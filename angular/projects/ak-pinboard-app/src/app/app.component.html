@@ -5,6 +5,9 @@
       <li nz-menu-item routerLink="/operators" [nzMatchRouter]="true">
         My Operators
       </li>
+      <li nz-menu-item routerLink="/party" [nzMatchRouter]="true">
+        Roster
+      </li>
       <li nz-submenu
         *ngIf="regionService.region$ | async as region"
         [nzTitle]="'Region: '+regionService.regions[region]" nzIcon="global">

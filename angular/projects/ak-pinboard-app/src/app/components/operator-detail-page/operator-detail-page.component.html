@@ -91,12 +91,18 @@
               <label nz-radio-button [nzValue]="4">
                 <img [src]="getPotentialUrl(4)">
               </label>
+              <label nz-radio-button [nzValue]="5">
+                <img [src]="getPotentialUrl(5)">
+              </label>
             </nz-radio-group>
           </div>
         </div>
 
-        <div class="attributes">
-          <nz-descriptions nzBordered nzSize="small">
+        <div class="form-row">
+          <div class="form-label" style="vertical-align: top;">
+            <div style="margin-top: 8px;">Stats</div>
+          </div>
+          <nz-descriptions class="form-control" nzBordered nzSize="small">
             <nz-descriptions-item nzTitle="Max HP">
               {{c.stats.maxHp}}
             </nz-descriptions-item>
@@ -123,6 +129,23 @@
             </nz-descriptions-item>
           </nz-descriptions>
         </div>
+
+
+
+        <div class="form-row" style="margin-top: 20px;">
+          <div class="form-label">Actions</div>
+          <div class="form-control">
+            <button nz-button nzType="primary"
+              *ngIf="!c.hired"
+              (click)="hire(c);">
+              Add to My Operators
+            </button>
+            <button nz-button nzType="danger"
+              *ngIf="c.hired"
+              (click)="fire(c);">
+              Remove from My Operators
+            </button>
+          </div>
 
       </div>
 

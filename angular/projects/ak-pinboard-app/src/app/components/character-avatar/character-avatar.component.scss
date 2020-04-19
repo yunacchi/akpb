@@ -1,0 +1,50 @@
+
+
+:host {
+  box-sizing: border-box;
+  border: 1px solid black;
+  display: inline-block;
+  width: 45px + 2 * 1px;
+
+  &.rarity-0 {
+    border-color: black;
+  }
+  &.rarity-1 {
+    border-color: #dce537;
+  }
+  &.rarity-2 {
+    border-color: #00b3fd;
+  }
+  &.rarity-3 {
+    border-color: #C0C0C0;
+  }
+  &.rarity-4 {
+    border-color: #FFD700; //#e6ce8c
+  }
+  &.rarity-5 {
+    border-color: #ec7005;
+  }
+
+  &.disabled {
+    .avatar-img {
+      filter: grayscale(100%);
+      opacity: 0.5;
+    }
+  }
+}
+
+.avatar-img {
+  width: 45px;
+  height: 45px;
+}
+
+.short-details {
+  margin: 0;
+  font-family: '04b08';
+  font-size: 6pt;
+  line-height: 6pt;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  width: 100%;
+}

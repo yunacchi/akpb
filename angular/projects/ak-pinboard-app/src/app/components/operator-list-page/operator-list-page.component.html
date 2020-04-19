@@ -1,43 +1,61 @@
-<ng-container *ngIf="myOperators$ | async as myOperators">
-  <h1 class="page-title">My operators ({{myOperators.length}})</h1>
-  <div class="operator-list-container">
-    <a *ngFor="let c of myOperators" [routerLink]="'/operators/'+c.charId" routerLinkActive="active">
-      <ak-character-card [chara]="c"></ak-character-card>
-    </a>
-  </div>
-</ng-container>
+<div class="filter-bar">
+  <nz-input-group [nzSuffix]="suffixTemplate">
+    <input type="text" nz-input [(ngModel)]="nameFilter" placeholder="Filter by name" (ngModelChange)="reload();" />
+  </nz-input-group>
+  <ng-template #suffixTemplate><i nz-icon nz-tooltip class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle"
+      *ngIf="nameFilter" (click)="nameFilter = ''; reload();"></i></ng-template>
+</div>
 
-<ng-container *ngIf="remainingOperators$ | async as remainingOperators">
-  <h1 class="page-title">Available operators ({{remainingOperators.length}})</h1>
-  <div class="operator-list-container">
-    <!--  -->
-    <div class="card-container" *ngFor="let c of remainingOperators"
-      (mouseenter) ="onCharaMouseEnter(c)"
-      (mouseleave) ="onCharaMouseLeave(c)">
-      <ak-character-card [chara]="c"></ak-character-card>
-      <div class="card-overlay" [@cardOverlayShowHide]="hoverChara === c ? 'show' : 'hide'">
 
-        <div class="card-overlay-button" (click)="addChara(c)">
-          <i nz-icon nzType="plus" nzTheme="outline"></i>
-          Add to<br>
-          My operators
-        </div>
+<nz-collapse>
 
-        <a class="card-overlay-button" [routerLink]="'/operators/'+c.charId">
-          <i nz-icon nzType="info-circle" nzTheme="outline"></i>
-          Details
+
+  <!-- My operators -->
+  <ng-container *ngIf="myOperators$ | async as myOperators">
+    <nz-collapse-panel [nzHeader]="'My operators ('+myOperators.length+')'" [nzActive]="myOperatorsActive">
+      <div class="operator-list-container">
+        <a *ngFor="let c of myOperators" [routerLink]="'/operators/'+c.charId" routerLinkActive="active">
+          <ak-character-card [chara]="c"></ak-character-card>
         </a>
-
       </div>
-    </div>
-  </div>
-</ng-container>
+    </nz-collapse-panel>
+  </ng-container>
 
-<ng-container *ngIf="otherRegionOperators$ | async as otherRegionOperators">
-  <h1 class="page-title">Future operators ({{otherRegionOperators.length}})</h1>
-  <div class="operator-list-container">
-    <a *ngFor="let c of otherRegionOperators" [routerLink]="'/operators/'+c.charId">
-      <ak-character-card [chara]="c"></ak-character-card>
-    </a>
-  </div>
-</ng-container>
+  <!-- Remaining operators-->
+  <ng-container *ngIf="remainingOperators$ | async as remainingOperators">
+    <nz-collapse-panel [nzHeader]="'Available operators ('+remainingOperators.length+')'"
+      [nzActive]="remainingOperatorsActive">
+      <div class="operator-list-container">
+        <div class="card-container" *ngFor="let c of remainingOperators" (mouseenter)="onCharaMouseEnter(c)"
+          (mouseleave)="onCharaMouseLeave(c)">
+          <ak-character-card [chara]="c"></ak-character-card>
+          <div class="card-overlay" [@cardOverlayShowHide]="hoverChara === c ? 'show' : 'hide'">
+
+            <div class="card-overlay-button" (click)="addChara(c)">
+              <i nz-icon nzType="plus" nzTheme="outline"></i>
+              Add to<br>
+              My operators
+            </div>
+
+            <a class="card-overlay-button" [routerLink]="'/operators/'+c.charId">
+              <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+              Details
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </ng-container>
+
+  <ng-container *ngIf="otherRegionOperators$ | async as otherRegionOperators">
+    <nz-collapse-panel [nzHeader]="'Future operators ('+otherRegionOperators.length+')'" [nzActive]="otherRegionOperatorsActive">
+      <div class="operator-list-container">
+        <a *ngFor="let c of otherRegionOperators" [routerLink]="'/operators/'+c.charId">
+          <ak-character-card [chara]="c"></ak-character-card>
+        </a>
+      </div>
+    </nz-collapse-panel>
+  </ng-container>
+
+</nz-collapse>

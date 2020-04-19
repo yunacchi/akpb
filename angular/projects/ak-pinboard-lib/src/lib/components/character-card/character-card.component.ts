@@ -11,6 +11,7 @@ export class CharacterCardComponent implements OnInit {
 
   @Input() public chara: AkCharacter;
   @HostBinding('class.disabled') @Input() public disabled: boolean;
+  @Input() public size: 'large'|'small' = 'large';
 
   rarityRange: any[] = [];
 
@@ -21,6 +22,12 @@ export class CharacterCardComponent implements OnInit {
   }
   @HostBinding('class.missing') public get isMissing() {
     return this.chara && !this.chara.hired;
+  }
+  @HostBinding('class.sz-large') public get isSizeLarge() {
+    return this.size === 'large';
+  }
+  @HostBinding('class.sz-small') public get isSizeSmall() {
+    return this.size === 'small';
   }
 
   get portraitUrl() {

@@ -1,0 +1,24 @@
+
+
+<div class="class-group" *ngFor="let cg of classGroups">
+  <h2 class="class-group-title">
+    <img class="class-img" [src]="getClassImgUrl(cg[0])">
+    {{getProfessionTl(cg[0])}}
+  </h2>
+  <div class="class-group-section mains" *ngIf="cg[1].mains.length">
+    <p class="section-title">&gt;= E{{minPhase}}-{{minLevel}}</p>
+    <div class="card-container" *ngFor="let c of cg[1].mains">
+      <ak-character-card [chara]="c" size="small"></ak-character-card>
+    </div>
+  </div>
+  <div class="class-group-section subs">
+    <p class="section-title" *ngIf="cg[1].subs.length">&lt; E{{minPhase}}-{{minLevel}}</p>
+    <ak-character-avatar *ngFor="let c of cg[1].subs" [chara]="c"></ak-character-avatar>
+    <p class="section-title">E0-1</p>
+    <ak-character-avatar *ngFor="let c of cg[1].pristines" [chara]="c"></ak-character-avatar>
+  </div>
+  <div class="class-group-section missing">
+    <p class="section-title">Missing</p>
+    <ak-character-avatar *ngFor="let c of cg[1].missing" [chara]="c" [disabled]="true"></ak-character-avatar>
+  </div>
+</div>

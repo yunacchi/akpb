@@ -14,6 +14,8 @@ import { OperatorListPageComponent } from './components/operator-list-page/opera
 import { TestPageComponent } from './components/test-page/test-page.component';
 import { OperatorDetailPageComponent } from './components/operator-detail-page/operator-detail-page.component';
 import { GameDataService } from 'projects/ak-pinboard-lib/src/lib/services/game-data.service';
+import { OperatorPartyPageComponent } from './components/operator-party-page/operator-party-page.component';
+import { CharacterAvatarComponent } from './components/character-avatar/character-avatar.component';
 
 export function initAppAsync(
   gameData: GameDataService
@@ -32,7 +34,9 @@ registerLocaleData(en);
     TestPageComponent,
     CharaPageComponent,
     OperatorListPageComponent,
-    OperatorDetailPageComponent
+    OperatorDetailPageComponent,
+    OperatorPartyPageComponent,
+    CharacterAvatarComponent
   ],
   imports: [
     BrowserModule,

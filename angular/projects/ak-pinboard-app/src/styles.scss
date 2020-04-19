@@ -3,6 +3,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+@font-face {
+  font-family: '04b08';
+  src:url('assets/fonts/04b08.ttf.woff') format('woff'),
+      url('assets/fonts/04b08.ttf.svg#04b08') format('svg'),
+      url('assets/fonts/04b08.ttf.eot'),
+      url('assets/fonts/04b08.ttf.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Global styles */
 
 // html, body {
