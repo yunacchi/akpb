@@ -43,6 +43,10 @@ export interface CharaUserData {
   skinId: string;
   evolvePhase: number;
   hired: boolean;
+
+  trust?: number; // Old data
+  potential?: number; // Old data
+  phaseIdx?: number; // Old data
 }
 
 export function createUserData(c: AkCharacter) {
@@ -58,10 +62,10 @@ export function createUserData(c: AkCharacter) {
 export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
   if (x !== null && x !== undefined) {
     c.level = x.level;
-    c.favorPoint = x.favorPoint;
-    c.potentialRank = x.potentialRank;
+    c.favorPoint = x.favorPoint || x.trust;
+    c.potentialRank = x.potentialRank || x.potential;
     c.skinId = x.skinId;
-    c.evolvePhase = x.evolvePhase;
+    c.evolvePhase = x.evolvePhase || x.phaseIdx;
     c.hired = x.hired;
     // Call computeStats() and updateSkin() after loading
   }
