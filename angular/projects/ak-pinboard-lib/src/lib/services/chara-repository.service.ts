@@ -8,14 +8,14 @@ import { SkinInfo } from '../abstractions/game-data/skin-table';
 import { GameRegion } from '../abstractions/game-data/game-region';
 import { CharaTranslation, CharaTranslations } from '../abstractions/tl-data';
 import { AkhrCharaData } from '../abstractions/game-data/tl-akhr';
-import { of, Subject } from 'rxjs';
+import { of, Subject, BehaviorSubject } from 'rxjs';
 import { UserDataService, applyUserData, createUserData } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharaRepositoryService {
-  public readonly reloadCharas$: Subject<void> = new Subject<void>();
+  public readonly reloadCharas$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   readonly charas: AkCharacter[];
   readonly charaMap: Map<string, AkCharacter>;
   readonly skinMap: Map<string, SkinInfo>;

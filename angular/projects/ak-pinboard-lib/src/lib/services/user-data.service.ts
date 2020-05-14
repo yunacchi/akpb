@@ -34,6 +34,19 @@ export class UserDataService {
     localStorage.setItem('i18n_region', r);
   }
 
+  loadSettings<T>(defaultSettings: T) {
+    const j = localStorage.getItem(`app_settings`);
+    defaultSettings = JSON.parse(JSON.stringify(defaultSettings)); // Dumb copy
+    if (j !== null && j !== undefined) {
+      return { ...defaultSettings, ...JSON.parse(j) };
+    }
+    return defaultSettings;
+  }
+  saveSettings<T>(newSettings: T) {
+    const str = JSON.stringify(newSettings);
+    localStorage.setItem('app_settings', str);
+  }
+
   loadChara(saveSlot: string, charId: string): CharaUserData | null {
     const j = localStorage.getItem(`${saveSlot}__chara__${charId}`);
     if (j !== null && j !== undefined) {

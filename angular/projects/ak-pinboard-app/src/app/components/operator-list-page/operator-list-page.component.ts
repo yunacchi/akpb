@@ -77,7 +77,6 @@ export class OperatorListPageComponent implements OnInit, OnDestroy {
   public readonly myOperators$: Observable<AkCharacter[]>;
   public readonly remainingOperators$: Observable<AkCharacter[]>;
   public readonly otherRegionOperators$: Observable<AkCharacter[]>;
-  public readonly reload$: BehaviorSubject<void>;
   public readonly destroy$: Subject<void> = new Subject<void>();
   public hoverChara?: AkCharacter;
   public nameFilter = '';
@@ -94,11 +93,10 @@ export class OperatorListPageComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly regionService: GameRegionService
   ) {
-    this.reload$ = new BehaviorSubject<void>(undefined);
     const locale$ = combineLatest([
       this.regionService.region$,
       this.regionService.language$,
-      this.reload$
+      this.charaService.reloadCharas$
     ]);
 
     this.myOperators$ = locale$.pipe(map(([region, language]) => {
@@ -145,7 +143,7 @@ export class OperatorListPageComponent implements OnInit, OnDestroy {
   }
 
   reload() {
-    this.reload$.next();
+    this.charaService.reloadCharas$.next();
   }
 
   onCharaMouseEnter(c: AkCharacter) {

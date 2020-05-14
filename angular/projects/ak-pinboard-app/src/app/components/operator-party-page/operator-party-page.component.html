@@ -1,24 +1,59 @@
+<div class="settings-toolbar">
+  Highlight above Elite
 
+  <nz-radio-group class="img-radio-group" [ngModel]="minPhase$ | async" (ngModelChange)="setMinPhase($event)"
+    [nzButtonStyle]="'solid'">
+    <label nz-radio-button [nzValue]="0" title="No Elite">
+      <img [src]="getPhaseUrl(0)" alt="No Elite">
+    </label>
+    <label nz-radio-button [nzValue]="1" title="Elite 1">
+      <img [src]="getPhaseUrl(1)" alt="Elite 1">
+    </label>
+    <label nz-radio-button [nzValue]="2" title="Elite 2">
+      <img [src]="getPhaseUrl(2)" alt="Elite 2">
+    </label>
+  </nz-radio-group>
 
-<div class="class-group" *ngFor="let cg of classGroups">
-  <h2 class="class-group-title">
-    <img class="class-img" [src]="getClassImgUrl(cg[0])">
-    {{getProfessionTl(cg[0])}}
-  </h2>
-  <div class="class-group-section mains" *ngIf="cg[1].mains.length">
-    <p class="section-title">&gt;= E{{minPhase}}-{{minLevel}}</p>
-    <div class="card-container" *ngFor="let c of cg[1].mains">
-      <ak-character-card [chara]="c" size="small"></ak-character-card>
+  Level
+
+  <nz-input-number
+    style="width: 60px; display: inline-block;"
+    [nzMin]="1"
+    [ngModel]="minLevel$ | async"
+    (ngModelChange)="setMinLevel($event)"></nz-input-number>
+</div>
+
+<div class="roster-container">
+
+  <div class="class-group" *ngFor="let cg of classGroups">
+    <h2 class="class-group-title">
+      <img class="class-img" [src]="getClassImgUrl(cg[0])">
+      {{getProfessionTl(cg[0])}}
+    </h2>
+    <div class="class-group-section mains" *ngIf="cg[1].mains.length">
+      <p class="section-title">&gt;= E{{minPhase$ | async}}-{{minLevel$ | async}}</p>
+      <div class="card-container" *ngFor="let c of cg[1].mains">
+        <a class="character-link" [routerLink]="'/operators/'+c.charId" [title]="c.tl.name">
+          <ak-character-card [chara]="c" size="small"></ak-character-card>
+        </a>
+      </div>
+    </div>
+    <div class="class-group-section subs">
+      <p class="section-title" *ngIf="cg[1].subs.length">&lt; E{{minPhase$ | async}}-{{minLevel$ | async}}</p>
+      <a class="character-link"  *ngFor="let c of cg[1].subs" [routerLink]="'/operators/'+c.charId" [title]="c.tl.name">
+        <ak-character-avatar [chara]="c"></ak-character-avatar>
+      </a>
+      <p class="section-title" *ngIf="cg[1].pristines.length">E0-1</p>
+      <a class="character-link" *ngFor="let c of cg[1].pristines" [routerLink]="'/operators/'+c.charId" [title]="c.tl.name">
+        <ak-character-avatar [chara]="c"></ak-character-avatar>
+      </a>
+    </div>
+    <div class="class-group-section missing" *ngIf="cg[1].missing.length">
+      <p class="section-title">Missing</p>
+      <a class="character-link" *ngFor="let c of cg[1].missing" [routerLink]="'/operators/'+c.charId" [title]="c.tl.name">
+        <ak-character-avatar [chara]="c" [disabled]="true"></ak-character-avatar>
+      </a>
     </div>
   </div>
-  <div class="class-group-section subs">
-    <p class="section-title" *ngIf="cg[1].subs.length">&lt; E{{minPhase}}-{{minLevel}}</p>
-    <ak-character-avatar *ngFor="let c of cg[1].subs" [chara]="c"></ak-character-avatar>
-    <p class="section-title">E0-1</p>
-    <ak-character-avatar *ngFor="let c of cg[1].pristines" [chara]="c"></ak-character-avatar>
-  </div>
-  <div class="class-group-section missing">
-    <p class="section-title">Missing</p>
-    <ak-character-avatar *ngFor="let c of cg[1].missing" [chara]="c" [disabled]="true"></ak-character-avatar>
-  </div>
+
 </div>
