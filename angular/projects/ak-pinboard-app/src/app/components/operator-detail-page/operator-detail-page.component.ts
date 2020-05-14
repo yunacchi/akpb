@@ -64,7 +64,6 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   }
 
   setPotential(c: AkCharacter, x: number) {
-    console.log(c);
     c.setPotential(x);
     this.saveChara(c);
   }

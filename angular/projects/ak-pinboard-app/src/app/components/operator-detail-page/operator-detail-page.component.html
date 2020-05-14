@@ -58,13 +58,13 @@
               style="width: 60px; display: inline-block;"
               [nzMin]="0"
               [nzMax]="200"
-              [ngModel]="c.favorPoint"
+              [ngModel]="c.trustPct"
               (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-input-number>
             <nz-slider
               style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
               [nzMin]="0"
               [nzMax]="200"
-              [ngModel]="c.favorPoint"
+              [ngModel]="c.trustPct"
               (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-slider>
           </div>
         </div>

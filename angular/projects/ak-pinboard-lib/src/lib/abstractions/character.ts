@@ -7,7 +7,7 @@ export class AkCharacter {
 
   public evolvePhase = 0;
   public level = 1;
-  public favorPoint = 0;
+  public trustPct = 0;
   public potentialRank = 0;
   public skinId: string;
   public hired = false;
@@ -72,9 +72,9 @@ export class AkCharacter {
     }
   }
 
-  public setTrust(favorPoint: number) {
-    if (favorPoint >= 0 && favorPoint <= 200) {
-      this.favorPoint = favorPoint;
+  public setTrust(trustPct: number) {
+    if (trustPct >= 0 && trustPct <= 200) {
+      this.trustPct = trustPct;
       this.computeStats();
     }
   }
@@ -99,13 +99,24 @@ export class AkCharacter {
     // Add stats from level and phase
     addAttributesFromRange(stats, this.level, this.phase.attributesKeyFrames);
 
-    // Add stats from favorPoint/favor
-    const favor = this.favorPoint / 2; // 200 FavorPoint = 100 Favor
+    // Add stats from trustPct/favor
+    const favor = this.trustPct / 2; // 200 trustPct = 100 Favor
     addAttributesFromRange(stats, favor, this.data.favorKeyFrames);
 
     // TODO: Add stats from passives - talents, potentialRanks
 
     this.stats = stats;
+  }
+
+  public reset() {
+    this.hired = false;
+    this.trustPct = 0;
+    this.potentialRank = 0;
+    this.absoluteLevel = 1;
+    this.level = 1;
+    this.evolvePhase = 0;
+    this.phase = this.data.phases[0];
+    // Call computeStats() and updateSkin() after
   }
 }
 
@@ -119,7 +130,6 @@ function addAttributesFromRange(stats: BaseCharaAttributes, l: number, kf: Chara
     for (const p of attributeNames) {
       const prevVal = prev.data[p] as number;
       const nextVal = next.data[p] as number;
-      // console.log(`${p} = ${prevVal} + ((${nextVal} - ${prevVal}) / (${next.level} - ${prev.level})) * (${l} - ${prev.level});`)
       stats[p] += Math.trunc(prevVal + ((nextVal - prevVal) / (next.level - prev.level)) * (l - prev.level));
     }
   } else if (attrKeyframes[0]) {

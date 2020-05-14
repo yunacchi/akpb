@@ -1,12 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { orderBy } from 'lodash';
 import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
 import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/services/chara-repository.service';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
-import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { AppTitleService } from '../../services/app-title.service';
 import { uniq } from 'lodash';
 
@@ -19,9 +19,9 @@ interface SortData {
   order: boolean[];
 }
 
-type SortModeKey = 'rarity'|'level';
+type SortModeKey = 'rarity' | 'level';
 
-const sortModes: {[key in SortModeKey]: SortMode} = {
+const sortModes: { [key in SortModeKey]: SortMode } = {
   rarity: {
     asc: {
       data: ['data.rarity', 'evolvePhase', 'level', 'tl.name'],
@@ -72,12 +72,13 @@ const sortModes: {[key in SortModeKey]: SortMode} = {
     ]),
   ],
 })
-export class OperatorListPageComponent implements OnInit {
+export class OperatorListPageComponent implements OnInit, OnDestroy {
 
   public readonly myOperators$: Observable<AkCharacter[]>;
   public readonly remainingOperators$: Observable<AkCharacter[]>;
   public readonly otherRegionOperators$: Observable<AkCharacter[]>;
   public readonly reload$: BehaviorSubject<void>;
+  public readonly destroy$: Subject<void> = new Subject<void>();
   public hoverChara?: AkCharacter;
   public nameFilter = '';
   public myOperatorsActive = true;
@@ -111,24 +112,30 @@ export class OperatorListPageComponent implements OnInit {
     this.otherRegionOperators$ = locale$.pipe(map(([region, language]) => {
       return this.buildOperatorArray(c => filterName(c, this.nameFilter) && !c.regions.includes(region));
     }));
+
+    this.charaService.reloadCharas$.pipe(takeUntil(this.destroy$)).subscribe(() => this.reload());
   }
 
   buildOperatorArray(filter: (c: AkCharacter) => boolean) {
     const p = uniq(
       this.charaService.charas.map(c => c.data.profession)
     );
-    console.log( JSON.stringify(p));
 
     const sortData = this.sortAscending ? sortModes[this.sortModeKey].asc : sortModes[this.sortModeKey].desc;
     return orderBy(
       this.charaService.charas.filter(filter),
       sortData.data,
-      sortData.order.map( (isAsc) => isAsc ? 'asc' : 'desc')
+      sortData.order.map((isAsc) => isAsc ? 'asc' : 'desc')
     );
   }
 
   ngOnInit(): void {
     this.title.setPageTitle('Operators');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   addChara(c: AkCharacter) {

@@ -8,17 +8,17 @@ import { SkinInfo } from '../abstractions/game-data/skin-table';
 import { GameRegion } from '../abstractions/game-data/game-region';
 import { CharaTranslation, CharaTranslations } from '../abstractions/tl-data';
 import { AkhrCharaData } from '../abstractions/game-data/tl-akhr';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { UserDataService, applyUserData, createUserData } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharaRepositoryService {
-
-  charas: AkCharacter[];
-  charaMap: Map<string, AkCharacter>;
-  skinMap: Map<string, SkinInfo>;
+  public readonly reloadCharas$: Subject<void> = new Subject<void>();
+  readonly charas: AkCharacter[];
+  readonly charaMap: Map<string, AkCharacter>;
+  readonly skinMap: Map<string, SkinInfo>;
   buildinEvolveMap: { [charId: string]: { [phaseId: string]: string; }; }; /* char => phaseId => skinId */
   tlMap: Map<string, CharaTranslations>;
 
