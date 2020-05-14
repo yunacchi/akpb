@@ -25,8 +25,8 @@ export class CharaPageComponent implements OnInit {
     return AkAssetsRootUrl + '/img/avatars/' + c.skinInfo.avatarId + '.png';
   }
 
-  getPhaseUrl(phaseIdx: number) {
-    return `${AkAssetsRootUrl}/img/ui/elite/${phaseIdx}.png`;
+  getPhaseUrl(evolvePhase: number) {
+    return `${AkAssetsRootUrl}/img/ui/elite/${evolvePhase}.png`;
   }
 
   get canRemoveChara() {

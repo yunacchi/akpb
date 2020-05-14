@@ -5,10 +5,10 @@ import { CharaTranslations, CharaTranslation } from './tl-data';
 
 export class AkCharacter {
 
-  public phaseIdx = 0;
+  public evolvePhase = 0;
   public level = 1;
-  public trust = 0;
-  public potential = 0;
+  public favorPoint = 0;
+  public potentialRank = 0;
   public skinId: string;
   public hired = false;
 
@@ -43,7 +43,7 @@ export class AkCharacter {
   public setRegion(newRegion: GameRegion) {
     this.region = newRegion;
     this.data = this.regionData[newRegion] || this.regionData.zh_CN;
-    this.phase = this.data.phases[this.phaseIdx];
+    this.phase = this.data.phases[this.evolvePhase];
   }
 
   public setSkin(skinInfo: SkinInfo) {
@@ -52,10 +52,10 @@ export class AkCharacter {
     }
   }
 
-  public setPhaseIdx(phaseIdx: number) {
-    if (phaseIdx >= 0 && phaseIdx < this.data.phases.length && phaseIdx !== this.phaseIdx) {
-      this.phaseIdx = phaseIdx;
-      this.phase = this.data.phases[phaseIdx];
+  public setEvolvePhase(evolvePhase: number) {
+    if (evolvePhase >= 0 && evolvePhase < this.data.phases.length && evolvePhase !== this.evolvePhase) {
+      this.evolvePhase = evolvePhase;
+      this.phase = this.data.phases[evolvePhase];
       this.setLevel(1);
     }
   }
@@ -64,7 +64,7 @@ export class AkCharacter {
     if (level > 0 && level <= this.phase.maxLevel) {
       this.level = level;
       let absoluteLevel = level;
-      for (let i = 0; i < this.phaseIdx; i++) {
+      for (let i = 0; i < this.evolvePhase; i++) {
         absoluteLevel += this.data.phases[0].maxLevel;
       }
       this.absoluteLevel = 0;
@@ -72,16 +72,16 @@ export class AkCharacter {
     }
   }
 
-  public setTrust(trust: number) {
-    if (trust >= 0 && trust <= 200) {
-      this.trust = trust;
+  public setTrust(favorPoint: number) {
+    if (favorPoint >= 0 && favorPoint <= 200) {
+      this.favorPoint = favorPoint;
       this.computeStats();
     }
   }
 
-  public setPotential(potential: number) {
-    if (potential >= 0 && potential < 5) {
-      this.potential = potential;
+  public setPotential(potentialRank: number) {
+    if (potentialRank >= 0 && potentialRank < 5) {
+      this.potentialRank = potentialRank;
     }
   }
 
@@ -99,8 +99,8 @@ export class AkCharacter {
     // Add stats from level and phase
     addAttributesFromRange(stats, this.level, this.phase.attributesKeyFrames);
 
-    // Add stats from trust/favor
-    const favor = this.trust / 2; // 200 Trust = 100 Favor
+    // Add stats from favorPoint/favor
+    const favor = this.favorPoint / 2; // 200 FavorPoint = 100 Favor
     addAttributesFromRange(stats, favor, this.data.favorKeyFrames);
 
     // TODO: Add stats from passives - talents, potentialRanks

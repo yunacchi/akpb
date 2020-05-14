@@ -14,8 +14,8 @@
           <div class="form-label">Elite</div>
           <div class="form-control">
             <nz-radio-group class="img-radio-group"
-              [ngModel]="c.phaseIdx"
-              (ngModelChange)="setPhaseIdx(c, $event)"
+              [ngModel]="c.evolvePhase"
+              (ngModelChange)="setEvolvePhase(c, $event)"
               [nzButtonStyle]="'solid'">
               <label nz-radio-button [nzValue]="0" title="No Elite">
                 <img [src]="getPhaseUrl(0)" alt="No Elite">
@@ -39,13 +39,13 @@
             <nz-input-number
               style="width: 60px; display: inline-block;"
               [nzMin]="1"
-              [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
+              [nzMax]="c.data.phases[c.evolvePhase].maxLevel"
               [ngModel]="c.level"
               (ngModelChange)="c.setLevel($event); saveChara(c);"></nz-input-number>
             <nz-slider
               style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
               [nzMin]="1"
-              [nzMax]="c.data.phases[c.phaseIdx].maxLevel"
+              [nzMax]="c.data.phases[c.evolvePhase].maxLevel"
               [ngModel]="c.level"
               (ngModelChange)="c.setLevel($event); saveChara(c);"></nz-slider>
           </div>
@@ -58,13 +58,13 @@
               style="width: 60px; display: inline-block;"
               [nzMin]="0"
               [nzMax]="200"
-              [ngModel]="c.trust"
+              [ngModel]="c.favorPoint"
               (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-input-number>
             <nz-slider
               style="width: 200px; display: inline-block; margin-left: 5px; vertical-align: bottom;"
               [nzMin]="0"
               [nzMax]="200"
-              [ngModel]="c.trust"
+              [ngModel]="c.favorPoint"
               (ngModelChange)="c.setTrust($event); saveChara(c);"></nz-slider>
           </div>
         </div>
@@ -73,7 +73,7 @@
           <div class="form-label">Potential</div>
           <div class="form-control">
             <nz-radio-group class="img-radio-group"
-              [ngModel]="c.potential"
+              [ngModel]="c.potentialRank"
               (ngModelChange)="setPotential(c, $event)"
               [nzButtonStyle]="'solid'">
               <label nz-radio-button [nzValue]="0">

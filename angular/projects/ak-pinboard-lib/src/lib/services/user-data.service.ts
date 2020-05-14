@@ -38,30 +38,30 @@ export class UserDataService {
 
 export interface CharaUserData {
   level: number;
-  trust: number;
-  potential: number;
+  favorPoint: number;
+  potentialRank: number;
   skinId: string;
-  phaseIdx: number;
+  evolvePhase: number;
   hired: boolean;
 }
 
 export function createUserData(c: AkCharacter) {
   return {
     level: c.level,
-    trust: c.trust,
-    potential: c.potential,
+    favorPoint: c.favorPoint,
+    potentialRank: c.potentialRank,
     skinId: c.skinId,
-    phaseIdx: c.phaseIdx,
+    evolvePhase: c.evolvePhase,
     hired: c.hired,
   };
 }
 export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
   if (x !== null && x !== undefined) {
     c.level = x.level;
-    c.trust = x.trust;
-    c.potential = x.potential;
+    c.favorPoint = x.favorPoint;
+    c.potentialRank = x.potentialRank;
     c.skinId = x.skinId;
-    c.phaseIdx = x.phaseIdx;
+    c.evolvePhase = x.evolvePhase;
     c.hired = x.hired;
     // Call computeStats() and updateSkin() after loading
   }

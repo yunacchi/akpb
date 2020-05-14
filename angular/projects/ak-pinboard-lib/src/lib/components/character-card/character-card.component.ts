@@ -89,7 +89,7 @@ export class CharacterCardComponent implements OnInit {
 
   get phaseUrl() {
     if (this.chara) {
-      return `${AkAssetsRootUrl}/img/ui/elite/${this.chara.phaseIdx}_s_box.png`;
+      return `${AkAssetsRootUrl}/img/ui/elite/${this.chara.evolvePhase}_s_box.png`;
     }
     return '';
   }

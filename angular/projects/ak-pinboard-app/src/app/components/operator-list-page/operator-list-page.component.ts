@@ -24,21 +24,21 @@ type SortModeKey = 'rarity'|'level';
 const sortModes: {[key in SortModeKey]: SortMode} = {
   rarity: {
     asc: {
-      data: ['data.rarity', 'phaseIdx', 'level', 'tl.name'],
+      data: ['data.rarity', 'evolvePhase', 'level', 'tl.name'],
       order: [true, true, true, true] // = isAscending
     },
     desc: {
-      data: ['data.rarity', 'phaseIdx', 'level', 'tl.name'],
+      data: ['data.rarity', 'evolvePhase', 'level', 'tl.name'],
       order: [false, false, false, true] // = isAscending
     }
   },
   level: {
     asc: {
-      data: ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+      data: ['evolvePhase', 'level', 'data.rarity', 'tl.name'],
       order: [true, true, true, true] // = isAscending
     },
     desc: {
-      data: ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+      data: ['evolvePhase', 'level', 'data.rarity', 'tl.name'],
       order: [false, false, false, true] // = isAscending
     }
   }

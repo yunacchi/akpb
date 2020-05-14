@@ -10,29 +10,29 @@
   <ul class="phase-select">
     <li>
       <img [src]="getPhaseUrl(0)"
-      (click)="selectedChara.setPhaseIdx(0); updateCharaSkin()">
+      (click)="selectedChara.setEvolvePhase(0); updateCharaSkin()">
     </li>
 
     <li *ngIf="selectedChara.data.phases.length > 1">
       <img [src]="getPhaseUrl(1)"
-      (click)="selectedChara.setPhaseIdx(1); updateCharaSkin()">
+      (click)="selectedChara.setEvolvePhase(1); updateCharaSkin()">
     </li>
 
     <li *ngIf="selectedChara.data.phases.length > 2">
       <img [src]="getPhaseUrl(2)"
-      (click)="selectedChara.setPhaseIdx(2); updateCharaSkin()">
+      (click)="selectedChara.setEvolvePhase(2); updateCharaSkin()">
     </li>
 
     <li *ngIf="selectedChara.data.phases.length > 3">
       <img [src]="getPhaseUrl(3)"
-      (click)="selectedChara.setPhaseIdx(3); updateCharaSkin()">
+      (click)="selectedChara.setEvolvePhase(3); updateCharaSkin()">
     </li>
   </ul>
 
   <h3>Level</h3>
   <nz-slider
     [nzMin]="1"
-    [nzMax]="selectedChara.data.phases[selectedChara.phaseIdx].maxLevel"
+    [nzMax]="selectedChara.data.phases[selectedChara.evolvePhase].maxLevel"
     (ngModelChange)="selectedChara.setLevel($event)"
     [ngModel]="selectedChara.level"></nz-slider>
 

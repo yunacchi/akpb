@@ -21,8 +21,8 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
     return AkAssetsRootUrl + '/img/avatars/' + c.skinInfo.avatarId + '.png';
   }
 
-  getPhaseUrl(phaseIdx: number) {
-    return `${AkAssetsRootUrl}/img/ui/elite/${phaseIdx}.png`;
+  getPhaseUrl(evolvePhase: number) {
+    return `${AkAssetsRootUrl}/img/ui/elite/${evolvePhase}.png`;
   }
 
   getIllustUrl(c: AkCharacter) {
@@ -57,8 +57,8 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
     this.destroyed$.next();
   }
 
-  setPhaseIdx(c: AkCharacter, idxStr: number) {
-    c.setPhaseIdx(idxStr);
+  setEvolvePhase(c: AkCharacter, idxStr: number) {
+    c.setEvolvePhase(idxStr);
     this.saveChara(c);
     this.charaService.updateCharaSkin(c);
   }

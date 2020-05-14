@@ -101,9 +101,9 @@ export class CharaRepositoryService {
     if (c.skinId) {
       skinInfo = this.skinMap[c.skinId];
     } else {
-      for (let phaseIdx = c.phaseIdx; phaseIdx > 0; phaseIdx--) {
-        if (skinEvolInfo[phaseIdx]) {
-          skinInfo = this.skinMap.get(skinEvolInfo[phaseIdx]);
+      for (let evolvePhase = c.evolvePhase; evolvePhase > 0; evolvePhase--) {
+        if (skinEvolInfo[evolvePhase]) {
+          skinInfo = this.skinMap.get(skinEvolInfo[evolvePhase]);
           break;
         }
       }

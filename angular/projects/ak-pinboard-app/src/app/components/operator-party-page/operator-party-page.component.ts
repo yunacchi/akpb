@@ -89,9 +89,9 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
       const p = c.data.profession;
       if (!groups[p]) { groups[p] = { mains: [], subs: [], missing: [], pristines: [] }; }
       if (c.hired) {
-        if (c.phaseIdx === 0 && c.level <= 1) {
+        if (c.evolvePhase === 0 && c.level <= 1) {
           groups[p].pristines.push(c);
-        } else if (c.phaseIdx > this.minPhase || (c.phaseIdx === this.minPhase && c.level >= this.minLevel)) {
+        } else if (c.evolvePhase > this.minPhase || (c.evolvePhase === this.minPhase && c.level >= this.minLevel)) {
           groups[p].mains.push(c);
         } else {
           groups[p].subs.push(c);
@@ -107,12 +107,12 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
     for (const g of Object.values(groups)) {
       g.mains = orderBy(
         g.mains, // By level desc
-        ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+        ['evolvePhase', 'level', 'data.rarity', 'tl.name'],
         ['desc', 'desc', 'desc', 'asc']
       );
       g.subs = orderBy(
         g.subs, // By level desc
-        ['phaseIdx', 'level', 'data.rarity', 'tl.name'],
+        ['evolvePhase', 'level', 'data.rarity', 'tl.name'],
         ['desc', 'desc', 'desc', 'asc']
       );
       g.pristines = orderBy(

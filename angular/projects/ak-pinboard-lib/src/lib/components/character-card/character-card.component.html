@@ -7,7 +7,7 @@
 
 <img class="class-img" [src]="classUrl">
 <img class="rarity-img" [src]="starUrl">
-<img class="phase-img" [src]="phaseUrl" *ngIf="chara && chara.phaseIdx > 0">
+<img class="phase-img" [src]="phaseUrl" *ngIf="chara && chara.evolvePhase > 0">
 <img class="level-bg" [src]="levelBgUrl">
 <p class="level-header">LV</p>
 <p class="level-value">{{chara.level}}</p>
