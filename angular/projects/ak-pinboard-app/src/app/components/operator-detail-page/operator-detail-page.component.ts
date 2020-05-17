@@ -18,7 +18,7 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   public readonly char$: Observable<AkCharacter>;
 
   getAvatarUrl(c: AkCharacter) {
-    return AkAssetsRootUrl + '/img/avatars/' + c.skinInfo.avatarId + '.png';
+    return AkAssetsRootUrl + '/img/avatars/' + encodeURIComponent(c.skinInfo.avatarId) + '.png';
   }
 
   getPhaseUrl(evolvePhase: number) {
@@ -26,7 +26,7 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   }
 
   getIllustUrl(c: AkCharacter) {
-    return AkAssetsRootUrl + '/img/characters/' + c.skinInfo.portraitId + '.png';
+    return AkAssetsRootUrl + '/img/characters/' + encodeURIComponent(c.skinInfo.portraitId) + '.png';
   }
 
   getPotentialUrl(p: number) {

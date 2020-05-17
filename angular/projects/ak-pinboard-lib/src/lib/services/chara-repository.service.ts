@@ -98,8 +98,9 @@ export class CharaRepositoryService {
     let skinInfo: SkinInfo;
     const skinEvolInfo = this.buildinEvolveMap[c.charId];
 
-    if (c.skinId) {
-      skinInfo = this.skinMap[c.skinId];
+    if (c.overrideSkinId) {
+      skinInfo = this.skinMap.get(c.overrideSkinId);
+      if (!skinInfo) { console.warn(`Override skin not found: ${c.overrideSkinId}`); }
     } else {
       for (let evolvePhase = c.evolvePhase; evolvePhase > 0; evolvePhase--) {
         if (skinEvolInfo[evolvePhase]) {

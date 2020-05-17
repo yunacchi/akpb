@@ -110,8 +110,6 @@ export class OperatorListPageComponent implements OnInit, OnDestroy {
     this.otherRegionOperators$ = locale$.pipe(map(([region, language]) => {
       return this.buildOperatorArray(c => filterName(c, this.nameFilter) && !c.regions.includes(region));
     }));
-
-    this.charaService.reloadCharas$.pipe(takeUntil(this.destroy$)).subscribe(() => this.reload());
   }
 
   buildOperatorArray(filter: (c: AkCharacter) => boolean) {

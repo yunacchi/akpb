@@ -9,7 +9,7 @@ export class AkCharacter {
   public level = 1;
   public trustPct = 0;
   public potentialRank = 0;
-  public skinId: string;
+  public overrideSkinId?: string;
   public hired = false;
 
   public skinInfo: SkinInfo;
@@ -116,6 +116,7 @@ export class AkCharacter {
     this.level = 1;
     this.evolvePhase = 0;
     this.phase = this.data.phases[0];
+    this.overrideSkinId = undefined;
     // Call computeStats() and updateSkin() after
   }
 }

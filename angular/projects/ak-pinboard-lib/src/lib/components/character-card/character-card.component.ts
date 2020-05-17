@@ -11,7 +11,7 @@ export class CharacterCardComponent implements OnInit {
 
   @Input() public chara: AkCharacter;
   @HostBinding('class.disabled') @Input() public disabled: boolean;
-  @Input() public size: 'large'|'small' = 'large';
+  @Input() public size: 'large' | 'small' = 'large';
 
   rarityRange: any[] = [];
 
@@ -32,15 +32,15 @@ export class CharacterCardComponent implements OnInit {
 
   get portraitUrl() {
     if (this.chara && this.chara.skinInfo) {
-      return `${AkAssetsRootUrl}/img/portraits/${this.chara.skinInfo.portraitId}.png`;
+      return `${AkAssetsRootUrl}/img/portraits/${encodeURIComponent(this.chara.skinInfo.portraitId)}.png`;
     }
     return '';
   }
 
   get bannerUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity+1;
-      if(rarity < 4) { rarity = 1; } // 1,2,3 use banner-1
+      let rarity = this.chara.data.rarity + 1;
+      if (rarity < 4) { rarity = 1; } // 1,2,3 use banner-1
       return `${AkAssetsRootUrl}/img/ui/chara/banner-${rarity}.png`;
     }
     return '';
@@ -48,8 +48,8 @@ export class CharacterCardComponent implements OnInit {
 
   get bgUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity+1;
-      if(rarity < 4) { rarity = 1; } // 1,2,3 use bg-1
+      let rarity = this.chara.data.rarity + 1;
+      if (rarity < 4) { rarity = 1; } // 1,2,3 use bg-1
       return `${AkAssetsRootUrl}/img/ui/chara/bg-${rarity}.png`;
     }
     return '';
@@ -57,7 +57,7 @@ export class CharacterCardComponent implements OnInit {
 
   get glowUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity+1;
+      let rarity = this.chara.data.rarity + 1;
       return `${AkAssetsRootUrl}/img/ui/chara/glow-${rarity}.png`;
     }
     return '';
@@ -65,7 +65,7 @@ export class CharacterCardComponent implements OnInit {
 
   get headerUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity+1;
+      let rarity = this.chara.data.rarity + 1;
       return `${AkAssetsRootUrl}/img/ui/chara/header-${rarity}.png`;
     }
     return '';
@@ -73,7 +73,7 @@ export class CharacterCardComponent implements OnInit {
 
   get starUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity+1;
+      let rarity = this.chara.data.rarity + 1;
       return `${LocalAssetsRootUrl}/img/ui/chara/sprite_star_${rarity}.png`;
     }
     return '';

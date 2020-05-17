@@ -107,7 +107,7 @@ export function createUserData(c: AkCharacter): CharaUserData {
     level: c.level,
     trustPct: c.trustPct,
     potentialRank: c.potentialRank,
-    skin: c.skinId,
+    skin: c.overrideSkinId,
     evolvePhase: c.evolvePhase,
     hired: c.hired,
     charId: c.charId
@@ -118,7 +118,12 @@ export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
     c.level = x.level;
     c.trustPct = x.trustPct || x.trust || 0;
     c.potentialRank = x.potentialRank || x.potential || 0;
-    c.skinId = x.skin;
+
+    if (!x.skin || x.skin.startsWith(`${c.charId}#`)) {
+      c.overrideSkinId = undefined;
+    } else {
+      c.overrideSkinId = x.skin;
+    }
     c.evolvePhase = x.evolvePhase || x.phaseIdx || 0;
     c.phase = c.data.phases[c.evolvePhase];
     c.hired = x.hired;
