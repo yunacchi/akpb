@@ -119,7 +119,7 @@ export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
     c.trustPct = x.trustPct || x.trust || 0;
     c.potentialRank = x.potentialRank || x.potential || 0;
 
-    if (!x.skin || x.skin.startsWith(`${c.charId}#`)) {
+    if (!x.skin) {
       c.overrideSkinId = undefined;
     } else {
       c.overrideSkinId = x.skin;

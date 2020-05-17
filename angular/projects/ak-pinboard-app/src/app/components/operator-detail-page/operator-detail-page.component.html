@@ -131,6 +131,22 @@
         </div>
 
 
+        <div class="form-row">
+          <div class="form-label">Skin</div>
+          <div class="form-control">
+            <nz-radio-group class="img-radio-group"
+              [ngModel]="c.overrideSkinId"
+              (ngModelChange)="setSkin(c, $event)"
+              [nzButtonStyle]="'solid'">
+              <label nz-radio-button [nzValue]="undefined">
+                Default
+              </label>
+              <label nz-radio-button *ngFor="let s of getSkins(c)" [nzValue]="s.skinId" [title]="s.skinId">
+                <img [src]="getSkinImg(s)" [attr.alt]="s.skinId">
+              </label>
+            </nz-radio-group>
+          </div>
+        </div>
 
         <div class="form-row" style="margin-top: 20px;">
           <div class="form-label">Actions</div>

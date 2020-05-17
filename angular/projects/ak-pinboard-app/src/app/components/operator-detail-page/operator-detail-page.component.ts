@@ -7,6 +7,7 @@ import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 import { AkAssetsRootUrl } from 'projects/ak-pinboard-lib/src/lib/abstractions/url';
 import { AppTitleService } from '../../services/app-title.service';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
+import { SkinInfo } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-data/skin-table';
 
 @Component({
   selector: 'app-operator-detail-page',
@@ -31,6 +32,27 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
 
   getPotentialUrl(p: number) {
     return AkAssetsRootUrl + '/img/ui/potential/' + (p + 1) + '.png';
+  }
+
+  getSkins(c: AkCharacter) {
+    return Array.from(this.charaService.skinMap.values()).filter(s => s.charId === c.charId);
+  }
+
+  getSkinImg(s: SkinInfo) {
+    const skinGroupId = s.displaySkin.skinGroupId;
+    if (skinGroupId === 'ILLUST_0') {
+      return this.getPhaseUrl(0);
+    }
+    if (skinGroupId === 'ILLUST_1') {
+      return this.getPhaseUrl(1);
+    }
+    if (skinGroupId === 'ILLUST_2') {
+      return this.getPhaseUrl(2);
+    }
+    if (skinGroupId === 'ILLUST_3') {
+      return this.getPhaseUrl(3);
+    }
+    return AkAssetsRootUrl + `/img/skingroups/${encodeURIComponent(s.displaySkin.skinGroupId)}.png`;
   }
 
   constructor(
@@ -82,4 +104,14 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
     this.saveChara(c);
   }
 
+  setSkin(c: AkCharacter, skinId?: string) {
+    if (skinId) {
+      c.overrideSkinId = skinId;
+      console.log(this.charaService.skinMap.get(skinId));
+    } else {
+      c.overrideSkinId = undefined;
+    }
+    this.charaService.updateCharaSkin(c);
+    this.saveChara(c);
+  }
 }
