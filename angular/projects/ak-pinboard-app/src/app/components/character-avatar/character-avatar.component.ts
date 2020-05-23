@@ -38,7 +38,7 @@ export class CharacterAvatarComponent implements OnInit {
 
   get avatarUrl() {
     if (this.chara && this.chara.skinInfo) {
-      return `${AkAssetsRootUrl}/img/avatars/${encodeURIComponent(this.chara.skinInfo.avatarId)}.png`;
+      return `${AkAssetsRootUrl}/arts/avatars/${encodeURIComponent(this.chara.skinInfo.avatarId)}.png`;
     }
     return '';
   }

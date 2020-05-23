@@ -48,7 +48,7 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
   }
 
   getPhaseUrl(evolvePhase: number) {
-    return `${AkAssetsRootUrl}/img/ui/elite/${evolvePhase}.png`;
+    return `${AkAssetsRootUrl}/ui/ICON_ELITE/elite_${evolvePhase}.png`;
   }
 
   ngOnInit(): void {
@@ -96,18 +96,8 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
   }
 
   getClassImgUrl(p: string) {
-    let className = 'vanguard';
-    switch (p) {
-      case 'MEDIC': className = 'medic'; break;
-      case 'WARRIOR': className = 'guard'; break;
-      case 'PIONEER': className = 'vanguard'; break;
-      case 'TANK': className = 'defender'; break;
-      case 'SNIPER': className = 'sniper'; break;
-      case 'CASTER': className = 'caster'; break;
-      case 'SUPPORT': className = 'supporter'; break;
-      case 'SPECIAL': className = 'specialist'; break;
-    }
-    return `${AkAssetsRootUrl}/img/classes/black/icon_profession_${className}_large.png`;
+    const className = p.toLowerCase();
+    return `${AkAssetsRootUrl}/ui/ICON_PROFESSIONS_LARGE/icon_profession_${className}_large.png`;
   }
 
   computeGroups(chars: AkCharacter[], language: GameRegion, region: GameRegion, appSettings: AppSettings) {

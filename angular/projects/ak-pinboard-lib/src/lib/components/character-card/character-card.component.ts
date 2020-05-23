@@ -32,64 +32,74 @@ export class CharacterCardComponent implements OnInit {
 
   get portraitUrl() {
     if (this.chara && this.chara.skinInfo) {
-      return `${AkAssetsRootUrl}/img/portraits/${encodeURIComponent(this.chara.skinInfo.portraitId)}.png`;
+      return `${AkAssetsRootUrl}/arts/portraits/${encodeURIComponent(this.chara.skinInfo.portraitId)}.png`;
     }
     return '';
   }
 
   get bannerUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity + 1;
-      if (rarity < 4) { rarity = 1; } // 1,2,3 use banner-1
-      return `${AkAssetsRootUrl}/img/ui/chara/banner-${rarity}.png`;
+      const rarity = this.chara.data.rarity + 1;
+      let filename = `sprite_lowerhub${rarity}shadowoff`;
+      if (rarity < 4) {
+        filename = `sprite_lowerhub1_3shadowoff`;
+      }
+      return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/${filename}.png`;
     }
     return '';
   }
 
   get bgUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity + 1;
-      if (rarity < 4) { rarity = 1; } // 1,2,3 use bg-1
-      return `${AkAssetsRootUrl}/img/ui/chara/bg-${rarity}.png`;
+      const rarity = this.chara.data.rarity + 1;
+      let filename = `sprite_char_background${rarity}`;
+      if (rarity < 4) {
+        filename = `sprite_char_background1_3`;
+      }
+      if (rarity > 4) {
+        // For some reason, filenames go 1_3, then 4, then 6, 7. There's no sprite_char_background5. :(
+        filename = `sprite_char_background${rarity+1}`;
+      }
+      return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/${filename}.png`;
     }
     return '';
   }
 
   get glowUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity + 1;
-      return `${AkAssetsRootUrl}/img/ui/chara/glow-${rarity}.png`;
+      const rarity = this.chara.data.rarity + 1;
+      return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/sprite_rartylight_${rarity}.png`;
     }
     return '';
   }
 
   get headerUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity + 1;
-      return `${AkAssetsRootUrl}/img/ui/chara/header-${rarity}.png`;
+      const rarity = this.chara.data.rarity + 1;
+      return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/sprite_upperhub_${rarity}.png`;
     }
     return '';
   }
 
   get starUrl() {
     if (this.chara) {
-      let rarity = this.chara.data.rarity + 1;
-      return `${LocalAssetsRootUrl}/img/ui/chara/sprite_star_${rarity}.png`;
+      const rarity = this.chara.data.rarity + 1;
+      return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/sprite_star_${rarity}.png`;
     }
     return '';
   }
 
   get classUrl() {
     if (this.chara) {
-      let profession = this.chara.data.profession.toLowerCase();
-      return `${LocalAssetsRootUrl}/img/ui/arts/misc/profession_icons_hub/icon_profession_${profession}.png`;
+      const profession = this.chara.data.profession.toLowerCase();
+      return `${AkAssetsRootUrl}/ui/ICON_PROFESSIONS/icon_profession_${profession}.png`;
     }
     return '';
   }
 
   get phaseUrl() {
     if (this.chara) {
-      return `${AkAssetsRootUrl}/img/ui/elite/${this.chara.evolvePhase}_s_box.png`;
+      return `${AkAssetsRootUrl}/ui/ICON_ELITE/elite_${this.chara.evolvePhase}_card.png`;
     }
     return '';
   }

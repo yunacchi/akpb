@@ -4,8 +4,8 @@ import { map, tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { CharaRepositoryService } from './chara-repository.service';
 import { GameDatabase } from '../abstractions/game-data/game-database';
+import { AkDataRootUrl } from '../abstractions/url';
 
-const gameDataUrlRoot = 'https://cdn.jsdelivr.net/gh/Aceship/AN-EN-Tags@master/';
 const jsonList = {
   // CN
   chars           : 'json/gamedata/zh_CN/gamedata/excel/character_table.json',
@@ -71,7 +71,7 @@ export class GameDataService {
   public loadGameData$() {
     const db: any = {};
     const observables = Object.entries(jsonList).map(([dataName, relativeUrl]) => {
-      return this.httpClient.get(gameDataUrlRoot + relativeUrl)
+      return this.httpClient.get(AkDataRootUrl + '/' + relativeUrl)
         .pipe(
           tap((data) => { db[dataName] = data; })
         );

@@ -19,19 +19,19 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   public readonly char$: Observable<AkCharacter>;
 
   getAvatarUrl(c: AkCharacter) {
-    return AkAssetsRootUrl + '/img/avatars/' + encodeURIComponent(c.skinInfo.avatarId) + '.png';
-  }
-
-  getPhaseUrl(evolvePhase: number) {
-    return `${AkAssetsRootUrl}/img/ui/elite/${evolvePhase}.png`;
+    return AkAssetsRootUrl + '/arts/avatars/' + encodeURIComponent(c.skinInfo.avatarId) + '.png';
   }
 
   getIllustUrl(c: AkCharacter) {
-    return AkAssetsRootUrl + '/img/characters/' + encodeURIComponent(c.skinInfo.portraitId) + '.png';
+    return AkAssetsRootUrl + '/arts/characters/' + encodeURIComponent(c.skinInfo.portraitId) + '.png';
   }
 
   getPotentialUrl(p: number) {
-    return AkAssetsRootUrl + '/img/ui/potential/' + (p + 1) + '.png';
+    return AkAssetsRootUrl + `/ui/ICON_POTENTIAL/potential_${p}_small.png`;
+  }
+
+  getPhaseUrl(evolvePhase: number) {
+    return `${AkAssetsRootUrl}/ui/ICON_ELITE/elite_${evolvePhase}.png`;
   }
 
   getSkins(c: AkCharacter) {
@@ -52,7 +52,7 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
     if (skinGroupId === 'ILLUST_3') {
       return this.getPhaseUrl(3);
     }
-    return AkAssetsRootUrl + `/img/skingroups/${encodeURIComponent(s.displaySkin.skinGroupId)}.png`;
+    return AkAssetsRootUrl + `/ui/SKIN_GROUP_ICON/${encodeURIComponent(s.displaySkin.skinGroupId)}.png`;
   }
 
   constructor(
@@ -107,7 +107,6 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   setSkin(c: AkCharacter, skinId?: string) {
     if (skinId) {
       c.overrideSkinId = skinId;
-      console.log(this.charaService.skinMap.get(skinId));
     } else {
       c.overrideSkinId = undefined;
     }
