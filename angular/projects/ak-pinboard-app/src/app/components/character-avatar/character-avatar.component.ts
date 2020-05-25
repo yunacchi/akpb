@@ -43,5 +43,10 @@ export class CharacterAvatarComponent implements OnInit {
     return '';
   }
 
-
+  get name() {
+    if (this.chara && this.chara.skinInfo) {
+      return this.chara.tl.name.toUpperCase();
+    }
+    return '';
+  }
 }
