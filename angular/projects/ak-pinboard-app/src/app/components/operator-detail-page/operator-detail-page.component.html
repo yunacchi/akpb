@@ -18,16 +18,16 @@
               (ngModelChange)="setEvolvePhase(c, $event)"
               [nzButtonStyle]="'solid'">
               <label nz-radio-button [nzValue]="0" title="No Elite">
-                <img [src]="getPhaseUrl(0)" alt="No Elite">
+                <img crossorigin="anonymous" [src]="getPhaseUrl(0)" alt="No Elite">
               </label>
               <label nz-radio-button [nzValue]="1" *ngIf="c.data.phases.length > 1" title="Elite 1">
-                <img [src]="getPhaseUrl(1)" alt="Elite 1">
+                <img crossorigin="anonymous" [src]="getPhaseUrl(1)" alt="Elite 1">
               </label>
               <label nz-radio-button [nzValue]="2" *ngIf="c.data.phases.length > 2" title="Elite 2">
-                <img [src]="getPhaseUrl(2)" alt="Elite 2">
+                <img crossorigin="anonymous" [src]="getPhaseUrl(2)" alt="Elite 2">
               </label>
               <label nz-radio-button [nzValue]="3" *ngIf="c.data.phases.length > 3" title="Elite 3">
-                <img [src]="getPhaseUrl(3)" alt="Elite 3">
+                <img crossorigin="anonymous" [src]="getPhaseUrl(3)" alt="Elite 3">
               </label>
             </nz-radio-group>
           </div>
@@ -77,22 +77,22 @@
               (ngModelChange)="setPotential(c, $event)"
               [nzButtonStyle]="'solid'">
               <label nz-radio-button [nzValue]="0">
-                <img [src]="getPotentialUrl(0)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(0)">
               </label>
               <label nz-radio-button [nzValue]="1">
-                <img [src]="getPotentialUrl(1)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(1)">
               </label>
               <label nz-radio-button [nzValue]="2">
-                <img [src]="getPotentialUrl(2)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(2)">
               </label>
               <label nz-radio-button [nzValue]="3">
-                <img [src]="getPotentialUrl(3)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(3)">
               </label>
               <label nz-radio-button [nzValue]="4">
-                <img [src]="getPotentialUrl(4)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(4)">
               </label>
               <label nz-radio-button [nzValue]="5">
-                <img [src]="getPotentialUrl(5)">
+                <img crossorigin="anonymous" [src]="getPotentialUrl(5)">
               </label>
             </nz-radio-group>
           </div>
@@ -142,7 +142,7 @@
                 Default
               </label>
               <label nz-radio-button *ngFor="let s of getSkins(c)" [nzValue]="s.skinId" [title]="s.skinId">
-                <img [src]="getSkinImg(s)" [attr.alt]="s.skinId">
+                <img crossorigin="anonymous" [src]="getSkinImg(s)" [attr.alt]="s.skinId">
               </label>
             </nz-radio-group>
           </div>

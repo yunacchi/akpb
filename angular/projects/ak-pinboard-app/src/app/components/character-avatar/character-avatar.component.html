@@ -1,7 +1,7 @@
 <p class="short-details" *ngIf="chara">
-  {{chara.tl.name}}
+  {{name}}
 </p>
-<img class="avatar-img" [src]="avatarUrl">
-<p class="short-details" *ngIf="chara && chara.hired">
+<img class="avatar-img" crossorigin="anonymous" [src]="avatarUrl">
+<p class="short-details" *ngIf="chara && chara.hired" style="text-align: right; padding-right: 1px;">
   E{{chara.evolvePhase}}-{{chara.level}}
 </p>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { AkCharacter } from 'projects/ak-pinboard-lib/src/lib/abstractions/character';
 import { orderBy } from 'lodash';
 import { AppTitleService } from '../../services/app-title.service';
@@ -11,6 +11,8 @@ import { GameRegion } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-d
 import { AkAssetsRootUrl } from 'projects/ak-pinboard-lib/src/lib/abstractions/url';
 import { AppSettingsService } from '../../services/app-settings.service';
 import { AppSettings } from '../../services/app-settings';
+import * as html2canvas from 'html2canvas/dist/html2canvas.js';
+import { format as formatDate } from 'date-fns';
 
 const professions = ['PIONEER', 'WARRIOR', 'SNIPER', 'CASTER', 'TANK', 'MEDIC', 'SUPPORT', 'SPECIAL'];
 
@@ -34,6 +36,8 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
   public classGroups: [string, CharasPerProfession][] = [];
 
   private readonly destroyed$: ReplaySubject<void> = new ReplaySubject(1);
+
+  @ViewChild('rosterContainer', { static: true }) rosterContainer!: ElementRef<HTMLDivElement>;
 
   constructor(
     private readonly title: AppTitleService,
@@ -147,12 +151,60 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
     }
 
     // Sort by the order in professions
-    return Object.entries(groups).sort( ([pA, xA], [pB, xB]) => {
+    return Object.entries(groups).sort(([pA, xA], [pB, xB]) => {
       const a = professions.indexOf(pA);
       const b = professions.indexOf(pB);
 
       return a - b;
-    } );
+    });
   }
 
+  async snipSnip() {
+    window.scrollTo(0, 0);
+    const o = {
+      allowTaint: true,
+      taintTest: true,
+      useCORS: true,
+      letterRendering: true,
+      logging: false,
+    };
+    const canvas: HTMLCanvasElement = await html2canvas(this.rosterContainer.nativeElement, o);
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    ctx.imageSmoothingEnabled = true;
+    const dataUri = canvas.toDataURL('image/png');
+    const blob = dataURItoBlob(dataUri);
+    const filename = `arknights-roster_${formatDate(new Date(), 'yyyy-MM-dd-HH-mm-ss')}.png`;
+
+    const aElm = document.createElement('a');
+    aElm.style.display = 'none';
+    document.body.appendChild(aElm);
+    aElm.href = window.URL.createObjectURL(blob);
+    aElm.download = filename;
+
+    aElm.click();
+
+    window.URL.revokeObjectURL(aElm.href);
+    aElm.parentElement.removeChild(aElm);
+  }
+}
+
+function dataURItoBlob(dataURI: string) {
+  let byteString: string;
+  if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+    byteString = atob(dataURI.split(',')[1]);
+  } else {
+    byteString = decodeURI(dataURI.split(',')[1]);
+  }
+
+  // separate out the mime component
+  const mimeString: string = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to a typed array
+  const blob: Uint8Array = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) {
+    blob[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([blob], {
+    type: mimeString
+  });
 }
