@@ -58,7 +58,7 @@ export class CharacterCardComponent implements OnInit {
       }
       if (rarity > 4) {
         // For some reason, filenames go 1_3, then 4, then 6, 7. There's no sprite_char_background5. :(
-        filename = `sprite_char_background${rarity+1}`;
+        filename = `sprite_char_background${rarity + 1}`;
       }
       return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/${filename}.png`;
     }
@@ -113,6 +113,16 @@ export class CharacterCardComponent implements OnInit {
 
   get bkgPotentialUrl() {
     return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/bkg_potential.png`;
+  }
+
+  get skillUrl() {
+    if (this.chara && this.chara.defaultSkillInfo) {
+      const s = this.chara.defaultSkillInfo.iconId || this.chara.defaultSkillInfo.skillId;
+      if (s) {
+        return AkAssetsRootUrl + `/ui/SKILL_ICONS/skill_icon_${encodeURIComponent(s)}.png`;
+      }
+    }
+    return '';
   }
 
   constructor() { }

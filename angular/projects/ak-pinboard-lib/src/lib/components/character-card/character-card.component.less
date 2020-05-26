@@ -18,7 +18,7 @@
   overflow: hidden;
 
   filter: none;
-  .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img {
+  .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img, .skill-img {
     display: block;
   }
   .header-img, .bg-img {
@@ -26,7 +26,7 @@
   }
 
   &.missing {
-    .level-bg, .level-header, .level-value {
+    .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img, .skill-img {
       display: none;
     }
   }
@@ -45,7 +45,7 @@
 
   .bg-img, .header-img, .chara-img, .glow-img,
   .banner-img, .class-img, .rarity-img, .phase-img,
-  .bkg-potential-img, .potential-img,
+  .bkg-potential-img, .potential-img, .skill-img,
   .level-bg, .level-value, .level-header {
     position: absolute;
     background-repeat: no-repeat;
@@ -176,6 +176,14 @@
     font-weight: 600;
     color: white;
     font-size: 24pt;
+  }
+
+  .skill-img {
+    z-index: 67;
+    right: 3px;
+    bottom: 29px;
+    width: 35px;
+    height: 35px;
   }
 
   .chara-name {

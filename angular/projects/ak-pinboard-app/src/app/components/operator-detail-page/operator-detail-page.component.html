@@ -148,6 +148,20 @@
           </div>
         </div>
 
+        <div class="form-row">
+          <div class="form-label">Skill</div>
+          <div class="form-control">
+            <nz-radio-group class="img-radio-group"
+              [ngModel]="c.defaultSkillIndex"
+              (ngModelChange)="setDefaultSkill(c, $event)"
+              [nzButtonStyle]="'solid'">
+              <label nz-radio-button *ngFor="let s of c.skills; index as i;" [nzValue]="i" [title]="s.skillId">
+                <img crossorigin="anonymous" [src]="getSkillImg(s)" [attr.alt]="s.skillId">
+              </label>
+            </nz-radio-group>
+          </div>
+        </div>
+
         <div class="form-row" style="margin-top: 20px;">
           <div class="form-label">Actions</div>
           <div class="form-control">

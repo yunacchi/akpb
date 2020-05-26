@@ -11,6 +11,7 @@
 <img crossorigin="anonymous" class="bkg-potential-img" [src]="bkgPotentialUrl" *ngIf="chara && chara.potentialRank > 0">
 <img crossorigin="anonymous" class="potential-img" [src]="potentialUrl" *ngIf="chara && chara.potentialRank > 0">
 <img crossorigin="anonymous" class="level-bg" [src]="levelBgUrl">
+<img crossorigin="anonymous" class="skill-img" *ngIf="skillUrl" [src]="skillUrl">
 <p class="level-header">LV</p>
 <p class="level-value">{{chara.level}}</p>
 <p class="chara-name">{{chara.tl.name}}</p>

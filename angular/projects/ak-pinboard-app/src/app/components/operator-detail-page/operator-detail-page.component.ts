@@ -8,6 +8,8 @@ import { AkAssetsRootUrl } from 'projects/ak-pinboard-lib/src/lib/abstractions/u
 import { AppTitleService } from '../../services/app-title.service';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
 import { SkinInfo } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-data/skin-table';
+import { CharaSkillInfo } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-data/character-table';
+import { SkillInfo } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-data/skill-table';
 
 @Component({
   selector: 'app-operator-detail-page',
@@ -55,6 +57,15 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
     return AkAssetsRootUrl + `/ui/SKIN_GROUP_ICON/${encodeURIComponent(s.displaySkin.skinGroupId)}.png`;
   }
 
+  getSkillImg(cs: CharaSkillInfo) {
+    const s = this.charaService.skillMap.get(cs.skillId);
+    if (s) {
+      const iconId = s.iconId || s.skillId;
+      return AkAssetsRootUrl + `/ui/SKILL_ICONS/skill_icon_${encodeURIComponent(iconId)}.png`;
+    }
+    return '';
+  }
+
   constructor(
     private readonly charaService: CharaRepositoryService,
     private readonly region: GameRegionService,
@@ -87,6 +98,12 @@ export class OperatorDetailPageComponent implements OnInit, OnDestroy {
 
   setPotential(c: AkCharacter, x: number) {
     c.setPotential(x);
+    this.saveChara(c);
+  }
+
+  setDefaultSkill(c: AkCharacter, x: number) {
+    c.defaultSkillIndex = x;
+    this.charaService.updateCharaSkill(c);
     this.saveChara(c);
   }
 

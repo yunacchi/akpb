@@ -55,6 +55,7 @@ export class AppComponent {
             applyUserData(c, charData);
             this.charaService.updateCharaSkin(c);
             c.computeStats();
+            this.charaService.updateCharaSkill(c);
           }
         }
 
