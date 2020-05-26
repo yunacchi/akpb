@@ -5,7 +5,7 @@ import { AkAssetsRootUrl, LocalAssetsRootUrl } from '../../abstractions/url';
 @Component({
   selector: 'ak-character-card',
   templateUrl: './character-card.component.html',
-  styleUrls: ['./character-card.component.scss']
+  styleUrls: ['./character-card.component.less']
 })
 export class CharacterCardComponent implements OnInit {
 

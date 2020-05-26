@@ -47,7 +47,7 @@ const sortModes: { [key in SortModeKey]: SortMode } = {
 @Component({
   selector: 'app-operator-list-page',
   templateUrl: './operator-list-page.component.html',
-  styleUrls: ['./operator-list-page.component.scss'],
+  styleUrls: ['./operator-list-page.component.less'],
   animations: [
     trigger('cardOverlayShowHide', [
       state('show', style({

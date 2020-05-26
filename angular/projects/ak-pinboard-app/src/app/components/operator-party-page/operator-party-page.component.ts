@@ -25,7 +25,7 @@ interface CharasPerProfession {
 
 @Component({
   templateUrl: './operator-party-page.component.html',
-  styleUrls: ['./operator-party-page.component.scss']
+  styleUrls: ['./operator-party-page.component.less']
 })
 export class OperatorPartyPageComponent implements OnInit, OnDestroy {
 

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TestPageComponent } from './components/test-page/test-page.component';
 import { OperatorListPageComponent } from './components/operator-list-page/operator-list-page.component';
 import { OperatorDetailPageComponent } from './components/operator-detail-page/operator-detail-page.component';
 import { OperatorPartyPageComponent } from './components/operator-party-page/operator-party-page.component';

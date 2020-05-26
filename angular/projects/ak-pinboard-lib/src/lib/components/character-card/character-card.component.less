@@ -1,7 +1,7 @@
-$card-footer-color: #333333;
-$base-card-width: 140px;
-$base-card-height: 305px;
-$base-card-margin: 10px;
+@card-footer-color: #333333;
+@base-card-width: 140px;
+@base-card-height: 305px;
+@base-card-margin: 10px;
 
 :host {
   position: relative;
@@ -11,8 +11,8 @@ $base-card-margin: 10px;
   border: 1px solid black;
   margin: 10px;
 
-  width: $base-card-width;
-  height: $base-card-height;
+  width: @base-card-width;
+  height: @base-card-height;
   user-select: none;
 
   filter: none;
@@ -86,7 +86,7 @@ $base-card-margin: 10px;
     left: 0;
     right: 0;
     height: 35px;
-    background-color: $card-footer-color;
+    background-color: @card-footer-color;
   }
 
   .banner-img {

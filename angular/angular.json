@@ -7,7 +7,7 @@
       "projectType": "library",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "less"
         }
       },
       "root": "projects/ak-pinboard-lib",
@@ -52,7 +52,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "less"
         }
       },
       "root": "projects/ak-pinboard-app",
@@ -79,7 +79,7 @@
             ],
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "projects/ak-pinboard-app/src/styles.scss"
+              "projects/ak-pinboard-app/src/styles.less"
             ],
             "scripts": []
           },
@@ -143,7 +143,7 @@
               "projects/ak-pinboard-app/src/assets"
             ],
             "styles": [
-              "projects/ak-pinboard-app/src/styles.scss"
+              "projects/ak-pinboard-app/src/styles.less"
             ],
             "scripts": []
           }

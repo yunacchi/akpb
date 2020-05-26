@@ -12,7 +12,7 @@ import { SkinInfo } from 'projects/ak-pinboard-lib/src/lib/abstractions/game-dat
 @Component({
   selector: 'app-operator-detail-page',
   templateUrl: './operator-detail-page.component.html',
-  styleUrls: ['./operator-detail-page.component.scss']
+  styleUrls: ['./operator-detail-page.component.less']
 })
 export class OperatorDetailPageComponent implements OnInit, OnDestroy {
   private readonly destroyed$: ReplaySubject<void> = new ReplaySubject(1);
