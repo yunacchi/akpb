@@ -104,6 +104,17 @@ export class CharacterCardComponent implements OnInit {
     return '';
   }
 
+  get potentialUrl() {
+    if (this.chara) {
+      return `${AkAssetsRootUrl}/ui/ICON_POTENTIAL/potential_${this.chara.potentialRank}_small.png`;
+    }
+    return '';
+  }
+
+  get bkgPotentialUrl() {
+    return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/bkg_potential.png`;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

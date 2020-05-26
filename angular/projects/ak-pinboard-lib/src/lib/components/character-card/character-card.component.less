@@ -15,9 +15,10 @@
   width: @base-card-width;
   height: @base-card-height;
   user-select: none;
+  overflow: hidden;
 
   filter: none;
-  .level-bg, .level-header, .level-value, .phase-img {
+  .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img {
     display: block;
   }
   .header-img, .bg-img {
@@ -44,6 +45,7 @@
 
   .bg-img, .header-img, .chara-img, .glow-img,
   .banner-img, .class-img, .rarity-img, .phase-img,
+  .bkg-potential-img, .potential-img,
   .level-bg, .level-value, .level-header {
     position: absolute;
     background-repeat: no-repeat;
@@ -124,8 +126,24 @@
     height: auto;
   }
 
-  .level-bg {
+  .bkg-potential-img {
     z-index: 62;
+    left: 70px;
+    bottom: 32px;
+    width: auto;
+    height: auto;
+  }
+
+  .potential-img {
+    z-index: 63;
+    left: 68px;
+    bottom: 29px;
+    width: auto;
+    height: auto;
+  }
+
+  .level-bg {
+    z-index: 64;
     left: -4px;
     bottom: 8px;
     width: auto;
@@ -133,7 +151,7 @@
   }
 
   .level-header {
-    z-index: 63;
+    z-index: 65;
     margin: 0;
     left: -4px;
     bottom: 55px;
@@ -147,7 +165,7 @@
   }
 
   .level-value {
-    z-index: 65;
+    z-index: 66;
     margin: 0;
     left: -4px;
     bottom: 18px;

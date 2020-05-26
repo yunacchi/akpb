@@ -8,6 +8,8 @@
 <img crossorigin="anonymous" class="class-img" [src]="classUrl">
 <img crossorigin="anonymous" class="rarity-img" [src]="starUrl">
 <img crossorigin="anonymous" class="phase-img" [src]="phaseUrl" *ngIf="chara && chara.evolvePhase > 0">
+<img crossorigin="anonymous" class="bkg-potential-img" [src]="bkgPotentialUrl" *ngIf="chara && chara.potentialRank > 0">
+<img crossorigin="anonymous" class="potential-img" [src]="potentialUrl" *ngIf="chara && chara.potentialRank > 0">
 <img crossorigin="anonymous" class="level-bg" [src]="levelBgUrl">
 <p class="level-header">LV</p>
 <p class="level-value">{{chara.level}}</p>

@@ -80,7 +80,7 @@ export class AkCharacter {
   }
 
   public setPotential(potentialRank: number) {
-    if (potentialRank >= 0 && potentialRank < 5) {
+    if (potentialRank >= 0 && potentialRank < 6) {
       this.potentialRank = potentialRank;
     }
   }
