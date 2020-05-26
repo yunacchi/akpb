@@ -163,10 +163,9 @@ export class OperatorPartyPageComponent implements OnInit, OnDestroy {
     window.scrollTo(0, 0);
     const o = {
       allowTaint: true,
-      taintTest: true,
       useCORS: true,
-      letterRendering: true,
       logging: false,
+      backgroundColor: '#222222',
     };
     const canvas: HTMLCanvasElement = await html2canvas(this.rosterContainer.nativeElement, o);
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;

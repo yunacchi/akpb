@@ -78,8 +78,8 @@
               }
             ],
             "styles": [
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "projects/ak-pinboard-app/src/styles.less"
+              "projects/ak-pinboard-app/src/styles.less",
+              "projects/ak-pinboard-app/src/theme.less"
             ],
             "scripts": []
           },
@@ -143,7 +143,8 @@
               "projects/ak-pinboard-app/src/assets"
             ],
             "styles": [
-              "projects/ak-pinboard-app/src/styles.less"
+              "projects/ak-pinboard-app/src/styles.less",
+              "projects/ak-pinboard-app/src/theme.less"
             ],
             "scripts": []
           }

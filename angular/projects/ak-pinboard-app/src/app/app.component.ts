@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameRegionService } from 'projects/ak-pinboard-lib/src/lib/services/game-region.service';
 import { CharaRepositoryService } from 'projects/ak-pinboard-lib/src/lib/services/chara-repository.service';
 import { UserDataService, createUserData, applyUserData } from 'projects/ak-pinboard-lib/src/lib/services/user-data.service';
+import { format as formatDate } from 'date-fns';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
-    downloadAnchorNode.setAttribute('download', 'akpb-chars.json');
+    const filename = `akpb-data_${formatDate(new Date(), 'yyyy-MM-dd-HH-mm-ss')}.json`;
+    downloadAnchorNode.setAttribute('download', filename);
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
