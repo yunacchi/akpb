@@ -23,11 +23,22 @@ export interface CharaData {
   profession: string;
   trait: any;
   phases: CharaPhase[];
-  skills: any[];
+  skills: CharaSkillInfo[];
   talents: any[];
   potentialRanks: any[];
   favorKeyFrames: CharaAttributeKeyFrame[];
   allSkillLvlup: any[];
+}
+
+export interface CharaSkillInfo {
+  skillId: string;
+  unlockCond: PhaseCond;
+  levelUpCostCond: any[];
+}
+
+export interface PhaseCond {
+  phase: number;
+  level: number;
 }
 
 export interface CharaPhase {

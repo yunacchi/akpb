@@ -10,7 +10,6 @@ import { AkPinboardLibModule } from 'projects/ak-pinboard-lib/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OperatorListPageComponent } from './components/operator-list-page/operator-list-page.component';
-import { TestPageComponent } from './components/test-page/test-page.component';
 import { OperatorDetailPageComponent } from './components/operator-detail-page/operator-detail-page.component';
 import { GameDataService } from 'projects/ak-pinboard-lib/src/lib/services/game-data.service';
 import { OperatorPartyPageComponent } from './components/operator-party-page/operator-party-page.component';
@@ -30,7 +29,6 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
-    TestPageComponent,
     OperatorListPageComponent,
     OperatorDetailPageComponent,
     OperatorPartyPageComponent,

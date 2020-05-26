@@ -5,7 +5,7 @@ import { AkAssetsRootUrl, LocalAssetsRootUrl } from '../../abstractions/url';
 @Component({
   selector: 'ak-character-card',
   templateUrl: './character-card.component.html',
-  styleUrls: ['./character-card.component.scss']
+  styleUrls: ['./character-card.component.less']
 })
 export class CharacterCardComponent implements OnInit {
 
@@ -58,7 +58,7 @@ export class CharacterCardComponent implements OnInit {
       }
       if (rarity > 4) {
         // For some reason, filenames go 1_3, then 4, then 6, 7. There's no sprite_char_background5. :(
-        filename = `sprite_char_background${rarity+1}`;
+        filename = `sprite_char_background${rarity + 1}`;
       }
       return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/${filename}.png`;
     }
@@ -100,6 +100,27 @@ export class CharacterCardComponent implements OnInit {
   get phaseUrl() {
     if (this.chara) {
       return `${AkAssetsRootUrl}/ui/ICON_ELITE/elite_${this.chara.evolvePhase}_card.png`;
+    }
+    return '';
+  }
+
+  get potentialUrl() {
+    if (this.chara) {
+      return `${AkAssetsRootUrl}/ui/ICON_POTENTIAL/potential_${this.chara.potentialRank}_small.png`;
+    }
+    return '';
+  }
+
+  get bkgPotentialUrl() {
+    return `${AkAssetsRootUrl}/ui/UI_CHARACTER_CARD_GROUP/bkg_potential.png`;
+  }
+
+  get skillUrl() {
+    if (this.chara && this.chara.defaultSkillInfo) {
+      const s = this.chara.defaultSkillInfo.iconId || this.chara.defaultSkillInfo.skillId;
+      if (s) {
+        return AkAssetsRootUrl + `/ui/SKILL_ICONS/skill_icon_${encodeURIComponent(s)}.png`;
+      }
     }
     return '';
   }

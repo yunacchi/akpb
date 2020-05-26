@@ -5,7 +5,7 @@ import { AkAssetsRootUrl } from 'projects/ak-pinboard-lib/src/lib/abstractions/u
 @Component({
   selector: 'ak-character-avatar',
   templateUrl: './character-avatar.component.html',
-  styleUrls: ['./character-avatar.component.scss']
+  styleUrls: ['./character-avatar.component.less']
 })
 export class CharacterAvatarComponent implements OnInit {
 

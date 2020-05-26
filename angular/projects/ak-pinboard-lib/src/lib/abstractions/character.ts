@@ -1,7 +1,9 @@
-import { CharaData, CharaPhase, CharaAttributeKeyFrame, CharaAttributes, BaseCharaAttributes } from './game-data/character-table';
+import { CharaData, CharaPhase, CharaAttributeKeyFrame, CharaAttributes, BaseCharaAttributes, CharaSkillInfo } from './game-data/character-table';
 import { SkinInfo } from './game-data/skin-table';
 import { GameRegion } from './game-data/game-region';
 import { CharaTranslations, CharaTranslation } from './tl-data';
+import { SkillInfo } from './game-data/skill-table';
+import { isThisISOWeek } from 'date-fns';
 
 export class AkCharacter {
 
@@ -9,6 +11,7 @@ export class AkCharacter {
   public level = 1;
   public trustPct = 0;
   public potentialRank = 0;
+  public defaultSkillIndex = 0;
   public overrideSkinId?: string;
   public hired = false;
 
@@ -19,6 +22,8 @@ export class AkCharacter {
   public data: CharaData;
   public regions: GameRegion[];
   public tl: CharaTranslation;
+  public skills: CharaSkillInfo[] = [];
+  public defaultSkillInfo?: SkillInfo;
 
   constructor(
     public readonly charId: string,
@@ -52,6 +57,10 @@ export class AkCharacter {
     }
   }
 
+  public setDefaultSkillInfo(s?: SkillInfo) {
+    this.defaultSkillInfo = s;
+  }
+
   public setEvolvePhase(evolvePhase: number) {
     if (evolvePhase >= 0 && evolvePhase < this.data.phases.length && evolvePhase !== this.evolvePhase) {
       this.evolvePhase = evolvePhase;
@@ -80,7 +89,7 @@ export class AkCharacter {
   }
 
   public setPotential(potentialRank: number) {
-    if (potentialRank >= 0 && potentialRank < 5) {
+    if (potentialRank >= 0 && potentialRank < 6) {
       this.potentialRank = potentialRank;
     }
   }
@@ -106,6 +115,9 @@ export class AkCharacter {
     // TODO: Add stats from passives - talents, potentialRanks
 
     this.stats = stats;
+
+    // Check available skills
+    this.skills = this.data.skills.filter(s => this.evolvePhase >= s.unlockCond.phase && this.level >= s.unlockCond.level);
   }
 
   public reset() {
@@ -117,6 +129,7 @@ export class AkCharacter {
     this.evolvePhase = 0;
     this.phase = this.data.phases[0];
     this.overrideSkinId = undefined;
+    this.defaultSkillIndex = 0;
     // Call computeStats() and updateSkin() after
   }
 }

@@ -89,6 +89,7 @@ export interface CharaUserData {
   level: number;
   // exp: number;
   evolvePhase: number;
+  defaultSkillIndex: number;
   // defaultSkillIndex: number;
   // gainTime: number;
   // skills: any[];
@@ -110,7 +111,8 @@ export function createUserData(c: AkCharacter): CharaUserData {
     skin: c.overrideSkinId,
     evolvePhase: c.evolvePhase,
     hired: c.hired,
-    charId: c.charId
+    charId: c.charId,
+    defaultSkillIndex: c.defaultSkillIndex,
   };
 }
 export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
@@ -118,6 +120,7 @@ export function applyUserData(c: AkCharacter, x: CharaUserData | null) {
     c.level = x.level;
     c.trustPct = x.trustPct || x.trust || 0;
     c.potentialRank = x.potentialRank || x.potential || 0;
+    c.defaultSkillIndex = x.defaultSkillIndex || 0;
 
     if (!x.skin) {
       c.overrideSkinId = undefined;

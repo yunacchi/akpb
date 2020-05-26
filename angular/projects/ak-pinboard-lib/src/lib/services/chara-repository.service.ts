@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AkCharacter } from '../abstractions/character';
-import { CharaData, CharacterTableFile } from '../abstractions/game-data/character-table';
+import { CharaData, CharacterTableFile, CharaSkillInfo } from '../abstractions/game-data/character-table';
 import { GameDataConstFile } from '../abstractions/game-data/game-data-const';
 import { GameDatabase } from '../abstractions/game-data/game-database';
 import { SkinInfo } from '../abstractions/game-data/skin-table';
@@ -10,15 +10,17 @@ import { CharaTranslation, CharaTranslations } from '../abstractions/tl-data';
 import { AkhrCharaData } from '../abstractions/game-data/tl-akhr';
 import { of, Subject, BehaviorSubject } from 'rxjs';
 import { UserDataService, applyUserData, createUserData } from './user-data.service';
+import { SkillInfo } from '../abstractions/game-data/skill-table';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharaRepositoryService {
-  public readonly reloadCharas$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
+  readonly reloadCharas$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   readonly charas: AkCharacter[];
   readonly charaMap: Map<string, AkCharacter>;
   readonly skinMap: Map<string, SkinInfo>;
+  readonly skillMap: Map<string, SkillInfo>;
   buildinEvolveMap: { [charId: string]: { [phaseId: string]: string; }; }; /* char => phaseId => skinId */
   tlMap: Map<string, CharaTranslations>;
 
@@ -27,6 +29,7 @@ export class CharaRepositoryService {
   ) {
     this.charaMap = new Map<string, AkCharacter>();
     this.skinMap = new Map<string, SkinInfo>();
+    this.skillMap = new Map<string, SkillInfo>();
     this.charas = [];
   }
 
@@ -34,6 +37,7 @@ export class CharaRepositoryService {
     // Clear collections
     this.skinMap.clear();
     this.charaMap.clear();
+    this.skillMap.clear();
     this.charas.splice(0, this.charas.length);
 
     // Build translations
@@ -47,6 +51,18 @@ export class CharaRepositoryService {
     }
     // Add elite-to-skin map
     this.buildinEvolveMap = db.skintable.buildinEvolveMap;
+
+    // Map skills
+    for (const skillId in db.skills) {
+      if (db.skills.hasOwnProperty(skillId)) {
+        this.skillMap.set(skillId, db.skills[skillId]);
+      }
+    }
+    for (const skillId in db.skillsEN) {
+      if (db.skills.hasOwnProperty(skillId)) {
+        this.skillMap.set(skillId, db.skills[skillId]);
+      }
+    }
 
     // Map characters
     for (const charId in db.chars) {
@@ -83,6 +99,7 @@ export class CharaRepositoryService {
         // Compute current skin and stats
         this.updateCharaSkin(c);
         c.computeStats();
+        this.updateCharaSkill(c);
 
         this.charas.push(c);
         this.charaMap.set(charId, c);
@@ -119,6 +136,15 @@ export class CharaRepositoryService {
       throw new Error(`No default skin for character ${c.charId}`);
     }
     c.setSkin(skinInfo);
+  }
+
+  public updateCharaSkill(c: AkCharacter) {
+    const s = c.data.skills[c.defaultSkillIndex];
+    if (s) {
+      c.setDefaultSkillInfo(this.skillMap.get(s.skillId));
+    } else {
+      c.setDefaultSkillInfo(undefined);
+    }
   }
 }
 

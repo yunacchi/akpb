@@ -1,13 +1,19 @@
 
 
 :host {
+  background-color: #333333;
+  border: 1px solid #222222;
   box-sizing: border-box;
-  border: 1px solid black;
   display: inline-block;
   width: 45px + 2 * 1px;
+  color: darken(white, 15%);
+  position: relative; // html2canvas background color workaround
+  font-family: "Consolas", "Courier New", Courier, monospace;
+  font-size: 8pt;
+  line-height: 8pt;
 
   &.rarity-0 {
-    border-color: black;
+    border-color: #222222;
   }
   &.rarity-1 {
     border-color: #dce537;
@@ -27,8 +33,8 @@
 
   &.disabled {
     .avatar-img {
-      filter: grayscale(100%);
       opacity: 0.5;
+      filter: grayscale(100%);
     }
   }
 }
@@ -40,13 +46,8 @@
 
 .short-details {
   margin: 0;
-  font-family: "Consolas", "Courier New", Courier, monospace;
-  //font-family: '04b08', Arial, Helvetica, sans-serif;
-  font-size: 8pt;
-  line-height: 8pt;
   overflow: hidden;
   text-overflow: clip;
   white-space: nowrap;
   width: 100%;
-  color: black;
 }

@@ -1,9 +1,10 @@
-$card-footer-color: #333333;
-$base-card-width: 140px;
-$base-card-height: 305px;
-$base-card-margin: 10px;
+@card-footer-color: #333333;
+@base-card-width: 140px;
+@base-card-height: 305px;
+@base-card-margin: 10px;
 
 :host {
+  background: @card-footer-color;
   position: relative;
 
   display: inline-block;
@@ -11,12 +12,13 @@ $base-card-margin: 10px;
   border: 1px solid black;
   margin: 10px;
 
-  width: $base-card-width;
-  height: $base-card-height;
+  width: @base-card-width;
+  height: @base-card-height;
   user-select: none;
+  overflow: hidden;
 
   filter: none;
-  .level-bg, .level-header, .level-value, .phase-img {
+  .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img, .skill-img {
     display: block;
   }
   .header-img, .bg-img {
@@ -24,7 +26,7 @@ $base-card-margin: 10px;
   }
 
   &.missing {
-    .level-bg, .level-header, .level-value {
+    .level-bg, .level-header, .level-value, .phase-img, .potential-img, .bkg-potential-img, .skill-img {
       display: none;
     }
   }
@@ -43,6 +45,7 @@ $base-card-margin: 10px;
 
   .bg-img, .header-img, .chara-img, .glow-img,
   .banner-img, .class-img, .rarity-img, .phase-img,
+  .bkg-potential-img, .potential-img, .skill-img,
   .level-bg, .level-value, .level-header {
     position: absolute;
     background-repeat: no-repeat;
@@ -86,7 +89,7 @@ $base-card-margin: 10px;
     left: 0;
     right: 0;
     height: 35px;
-    background-color: $card-footer-color;
+    background-color: @card-footer-color;
   }
 
   .banner-img {
@@ -123,8 +126,24 @@ $base-card-margin: 10px;
     height: auto;
   }
 
-  .level-bg {
+  .bkg-potential-img {
     z-index: 62;
+    left: 70px;
+    bottom: 32px;
+    width: auto;
+    height: auto;
+  }
+
+  .potential-img {
+    z-index: 63;
+    left: 68px;
+    bottom: 29px;
+    width: auto;
+    height: auto;
+  }
+
+  .level-bg {
+    z-index: 64;
     left: -4px;
     bottom: 8px;
     width: auto;
@@ -132,7 +151,7 @@ $base-card-margin: 10px;
   }
 
   .level-header {
-    z-index: 63;
+    z-index: 65;
     margin: 0;
     left: -4px;
     bottom: 55px;
@@ -146,7 +165,7 @@ $base-card-margin: 10px;
   }
 
   .level-value {
-    z-index: 65;
+    z-index: 66;
     margin: 0;
     left: -4px;
     bottom: 18px;
@@ -157,6 +176,14 @@ $base-card-margin: 10px;
     font-weight: 600;
     color: white;
     font-size: 24pt;
+  }
+
+  .skill-img {
+    z-index: 67;
+    right: 3px;
+    bottom: 29px;
+    width: 35px;
+    height: 35px;
   }
 
   .chara-name {

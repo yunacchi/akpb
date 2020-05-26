@@ -1,9 +1,13 @@
-$base-card-width: 140px;
-$base-card-height: 305px;
-$base-card-margin: 10px;
+@base-card-width: 140px;
+@base-card-height: 305px;
+@base-card-margin: 10px;
 
 ak-character-card {
   cursor: pointer;
+}
+
+.filter-bar {
+  margin-bottom: 24px;
 }
 
 .operator-list-container > a {
@@ -14,8 +18,8 @@ ak-character-card {
   .card-container {
     display: inline-block;
     position: relative;
-    width: $base-card-width + ( 2 * $base-card-margin );
-    height: $base-card-height + ( 2 * $base-card-margin );
+    width: @base-card-width + ( 2 * @base-card-margin );
+    height: @base-card-height + ( 2 * @base-card-margin );
 
     ak-character-card {
       z-index: 10;
@@ -27,10 +31,10 @@ ak-character-card {
     }
     .card-overlay {
       position: absolute;
-      top: $base-card-margin;
-      right: $base-card-margin;
-      bottom: $base-card-margin + 30px;
-      left: $base-card-margin;
+      top: @base-card-margin;
+      right: @base-card-margin;
+      bottom: @base-card-margin + 30px;
+      left: @base-card-margin;
       z-index: 20;
       background-color: rgba(0,0,0,0.7);
 
