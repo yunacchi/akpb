@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding, HostListener } from '@angular/core';
 import { AkCharacter } from '../../abstractions/character';
 import { AkAssetsRootUrl, LocalAssetsRootUrl } from '../../abstractions/url';
 
@@ -11,6 +11,7 @@ export class CharacterCardComponent implements OnInit {
 
   @Input() public chara: AkCharacter;
   @HostBinding('class.disabled') @Input() public disabled: boolean;
+  @HostBinding('class.hover') @Input() public hover: boolean;
   @Input() public size: 'large' | 'small' = 'large';
 
   rarityRange: any[] = [];
@@ -28,6 +29,16 @@ export class CharacterCardComponent implements OnInit {
   }
   @HostBinding('class.sz-small') public get isSizeSmall() {
     return this.size === 'small';
+  }
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.hover = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.hover = false;
   }
 
   get portraitUrl() {
